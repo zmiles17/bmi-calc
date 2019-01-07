@@ -1,15 +1,15 @@
 import React from 'react';
 import Input from './Input';
-import Result from './Results';
+import Result from './Result';
 
-class Form extends React.Component {
+class BMIcalc extends React.Component {
     state = {
         weight: '',
         height: '',
         bmi: '',
         category: ''
     }
-    
+
     setWeight = event => {
         let weight;
         if (event.target.nodeName === 'INPUT') weight = event.target.value + ' ' + event.target.parentNode[1].value;
@@ -26,12 +26,18 @@ class Form extends React.Component {
 
     calculateBMI = event => {
         event.preventDefault();
+        let category;
         let weight = parseInt(this.state.weight);
         let height = parseInt(this.state.height);
         if (this.state.weight.includes('lb')) weight /= 2.205;
         if (this.state.height.includes('cm')) height /= 100;
         if (this.state.height.includes('in')) height *= 0.0254;
-        this.setState({ bmi: weight / Math.pow(height, 2) });
+        const bmi = weight / Math.pow(height, 2);
+        if (bmi < 18.5) category = 'underweight';
+        if (18.5 <= bmi && bmi < 24.9) category = 'normal weight';
+        if (25 <= bmi && bmi < 29.9) category = 'overweight';
+        if (bmi >= 30) category = 'obese';
+        this.setState({ bmi: bmi, category: category });
     }
 
     render() {
@@ -44,4 +50,4 @@ class Form extends React.Component {
     }
 }
 
-export default Form;
+export default BMIcalc;
