@@ -7,7 +7,7 @@ const Nav = props => (
         <br></br>
         <Link to={`/bmi`}>Body Mass Index (BMI)</Link>
         <br></br>
-        <Link to={`/body-fat-percent`}>Body Fat Percent</Link>
+        <Link to={`/bmr`}>Basal Metabolic Rate (BMR)</Link>
         <br></br>
         <Link to={`/one-rep-max`}>One Rep Max (1RM)</Link>
         <br></br>
@@ -15,7 +15,7 @@ const Nav = props => (
         <br></br>
         <Link to={`/target-hr`}>Target Heart Rate</Link>
         <br></br>
-        <Link to={`/bmr`}>Basal Metabolic Rate (BMR)</Link>
+        <Link to={`/body-fat-percent`}>Body Fat Percent</Link>
     </nav>
 )
 
