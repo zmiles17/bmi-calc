@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
-import BMIcalc from './components/bmi-calculator/Calc';
+import { BrowserRouter, Route } from 'react-router-dom';
+import Nav from './components/Homepage/Nav';
+import Homepage from './components/Homepage/Home';
+import BMIcalc from './components/Fitness/BodyMassIndex/Calc';
 import './App.css';
 
 class App extends Component {
@@ -9,11 +11,10 @@ class App extends Component {
       <BrowserRouter>
         <div className="App">
           <header>
-            <nav>
-              <Link to={`/bmi-calculator`} >BMI Calculator</Link>
-            </nav>
+            <Nav />
           </header>
-          <Route exact path='/bmi-calculator' component={BMIcalc} />
+          <Route exact path='/' component={Homepage} />
+          <Route exact path='/bmi' component={BMIcalc} />
         </div>
       </BrowserRouter>
     );
