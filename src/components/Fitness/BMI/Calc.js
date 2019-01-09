@@ -14,14 +14,14 @@ class BMIcalc extends React.Component {
         let weight;
         if (event.target.nodeName === 'INPUT') weight = event.target.value + ' ' + event.target.parentNode[1].value;
         else weight = event.target.parentNode[0].value + ' ' + event.target.value;
-        if (weight.length <= 6) this.setState({ weight: weight });
+        if (weight.length <= 7) this.setState({ weight: weight });
     }
 
     setHeight = event => {
         let height;
         if (event.target.nodeName === 'INPUT') height = event.target.value + ' ' + event.target.parentNode[3].value;
         else height = event.target.parentNode[2].value + ' ' + event.target.value;
-        if (height.length <= 6) this.setState({ height: height });
+        if (height.length <= 7) this.setState({ height: height });
     }
 
     calculateBMI = event => {

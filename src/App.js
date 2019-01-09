@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import Nav from './components/Homepage/Nav';
 import Homepage from './components/Homepage/Home';
+import Nav from './components/Homepage/Nav';
 import BMIcalc from './components/Fitness/BMI/Calc';
 import BMRcalc from './components/Fitness/BMR/Calc';
 import './reset.css';

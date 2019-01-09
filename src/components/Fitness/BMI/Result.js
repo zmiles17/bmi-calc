@@ -10,7 +10,6 @@ const Result = props => (
             + props.category 
             + '.' 
             + ' The Body Mass Index is not a reliable indicator of body fat.'
-            + ' It is a simple calculation for the general population and cannot be applied to every individual.'
             : ''}
         </p>
     </div>
