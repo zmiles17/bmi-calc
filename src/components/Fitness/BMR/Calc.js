@@ -7,7 +7,7 @@ class BMRcalc extends React.Component {
         gender: 'Male',
         height: '',
         weight: '',
-        age: '',
+        age: '1',
         activity_level: '',
         BMR: '',
         calories: ''

@@ -27,7 +27,7 @@ const Form = props => (
         <label>
             Age
         <select onChange={props.setAge}>
-                {ages.map((age, i) => <option key={i}>{i}</option>)}
+                {ages.map((age, i) => <option key={i}>{i + 1}</option>)}
             </select>
             Years
         </label>
