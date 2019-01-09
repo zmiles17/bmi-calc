@@ -1,5 +1,5 @@
 import React from 'react';
-import Input from './Input';
+import Form from './Form';
 import Result from './Result';
 
 class BMIcalc extends React.Component {
@@ -43,7 +43,7 @@ class BMIcalc extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <Input changeWeight={this.setWeight} changeHeight={this.setHeight} clickHandler={this.calculateBMI} />
+                <Form changeWeight={this.setWeight} changeHeight={this.setHeight} clickHandler={this.calculateBMI} />
                 <Result bmi={this.state.bmi} category={this.state.category} />
             </React.Fragment>
         )

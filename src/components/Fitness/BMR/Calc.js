@@ -42,15 +42,15 @@ class BMRcalc extends React.Component {
         const gender = this.state.gender;
         const age = parseInt(this.state.age);
         const activity_level = this.state.activity_level;
-        if(this.state.height.includes('cm')) height /= 2.54;
-        if(this.state.weight.includes('kg')) weight *= 2.205;
-        if(gender === 'Male') BMR = 66 + ( 6.23 * weight ) + ( 12.7 * height ) - ( 6.8 * age );
-        if(gender === 'Female') BMR = 655 + ( 4.35 * weight ) + ( 4.7 * height ) - ( 4.7 * age );
-        if(activity_level === 'Sedentary') calories = BMR * 1.2;
-        if(activity_level === 'Light') calories = BMR * 1.375;
-        if(activity_level === 'Moderate') calories = BMR * 1.55;
-        if(activity_level === 'Very') calories = BMR * 1.725;
-        if(activity_level === 'Extra') calories = BMR * 1.9;
+        if (this.state.height.includes('cm')) height /= 2.54;
+        if (this.state.weight.includes('kg')) weight *= 2.205;
+        if (gender === 'Male') BMR = 66 + (6.23 * weight) + (12.7 * height) - (6.8 * age);
+        if (gender === 'Female') BMR = 655 + (4.35 * weight) + (4.7 * height) - (4.7 * age);
+        if (activity_level === 'Sedentary') calories = BMR * 1.2;
+        if (activity_level === 'Light') calories = BMR * 1.375;
+        if (activity_level === 'Moderate') calories = BMR * 1.55;
+        if (activity_level === 'Very') calories = BMR * 1.725;
+        if (activity_level === 'Extra') calories = BMR * 1.9;
         this.setState({ BMR: BMR, calories: calories })
     }
 
