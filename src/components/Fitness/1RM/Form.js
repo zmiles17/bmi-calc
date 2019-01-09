@@ -15,6 +15,7 @@ const Form = props => (
             Amount of repetitions
             <input type='number' onChange={props.setReps}/>
         </label>
+        <br></br>
         <button onClick={props.clickHandler}>Calculate</button>
     </form>
 )

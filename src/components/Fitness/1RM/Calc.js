@@ -11,23 +11,26 @@ class OneRepMax extends React.Component {
 
     setWeight = event => {
         let weight;
-        if (event.target.nodeName === 'INPUT') console.dir(event.target);
-        else console.dir(event.target);
-        console.log(weight);
+        if (event.target.nodeName === 'INPUT') weight = event.target.value + ' ' + event.target.parentNode.children[1].value;
+        else weight = event.target.parentNode.children[0].value + ' ' + event.target.value;
+        this.setState({ weight: weight })
     }
 
-    setReps = event => console.dir(event.target);
+    setReps = event => this.setState({ reps: event.target.value });
 
     handleClick = event => {
         event.preventDefault();
-        console.log(this.state)
+        let weight = parseInt(this.state.weight);
+        const reps = this.state.reps;
+        if(this.state.weight.includes('lb')) weight /= 2.205;
+        this.setState({ OneRepMax: weight * (36 / (37 - reps)) })
     }
 
     render () {
         return (
             <div>
                 <Form setWeight={this.setWeight} setReps={this.setReps} clickHandler={this.handleClick} />
-                <Result />
+                <Result result={this.state.OneRepMax} />
             </div>
         )
     }
