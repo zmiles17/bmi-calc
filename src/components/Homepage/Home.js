@@ -2,7 +2,7 @@ import React from 'react';
 
 const Home = props => (
     <div className='home'>
-        Welcome to My Fitness Calculator.
+        <h1>Welcome to My Fitness Calculator!</h1>
     </div>
 )
 

@@ -11,7 +11,7 @@ const Calculator = props => (
         <br></br>
         <Link to={`/calculator/VO2-max`}>Maximal Oxygen Uptake (VO2 Max)</Link>
         <br></br>
-        <Link to={`/calculator/target-hr`}>Target Heart Rate</Link>
+        <Link to={`/calculator/target-hr`}>Target Heart Rate (THR)</Link>
         <br></br>
         <Link to={`/calculator/body-fat-percent`}>Body Fat Percent</Link>
     </nav>

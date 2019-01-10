@@ -30,7 +30,7 @@ class OneRepMax extends React.Component {
         return (
             <div>
                 <Form setWeight={this.setWeight} setReps={this.setReps} clickHandler={this.handleClick} />
-                <Result result={this.state.OneRepMax} />
+                <Result OneRepMax={this.state.OneRepMax} />
             </div>
         )
     }

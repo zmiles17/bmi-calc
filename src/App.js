@@ -9,6 +9,11 @@ import OneRepMax from './components/Fitness/1RM/Calc';
 import VO2calc from './components/Fitness/VO2/Calc';
 import './reset.css';
 import './App.css';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars, faCalculator, faDumbbell, faUser, faHeartbeat, faWeight, faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faBars, faCalculator, faDumbbell, faUser, faHeartbeat, faWeight, faSignInAlt, faSignOutAlt)
 
 class App extends Component {
   render() {
@@ -16,6 +21,7 @@ class App extends Component {
       <BrowserRouter>
         <div className="App">
           <header>
+            <FontAwesomeIcon icon='bars' />
             <Nav />
           </header>
           <Route exact path='/' component={Home} />
