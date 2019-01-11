@@ -1,9 +1,10 @@
 import React from 'react';
+import { Jumbotron } from 'reactstrap';
 
 const Home = props => (
-    <div className='home'>
+    <Jumbotron className='home'>
         <h1>Welcome to My Fitness Calculator!</h1>
-    </div>
+    </Jumbotron>
 )
 
 export default Home;

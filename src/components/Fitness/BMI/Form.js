@@ -1,21 +1,23 @@
 import React from 'react';
+import { Button, Input, Form } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const Input = props => (
-    <form className='bmi-form'>
-        <input placeholder='weight' type='number' onChange={props.changeWeight} required />
-        <select onChange={props.changeWeight}>
+const Userinput = props => (
+    <Form className='bmi-form'>
+        <Input placeholder='weight' type='number' onChange={props.changeWeight} required />
+        <Input type='select' onChange={props.changeWeight}>
             <option value='kg'>kg</option>
             <option value='lb'>lb</option>
-        </select>
+        </Input>
         <br></br>
-        <input placeholder='height' type='number' onChange={props.changeHeight} required />
-        <select onChange={props.changeHeight}>
+        <Input placeholder='height' type='number' onChange={props.changeHeight} required />
+        <Input type='select' onChange={props.changeHeight}>
             <option value='in'>in</option>
             <option value='cm'>cm</option>
-        </select>
+        </Input>
         <br></br>
-        <button onClick={props.clickHandler}>Calculate</button>
-    </form>
+        <Button color='primary' onClick={props.clickHandler}>Calculate <FontAwesomeIcon icon='calculator' /></Button>
+    </Form>
 )
 
-export default Input;
+export default Userinput;

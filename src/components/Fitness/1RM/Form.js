@@ -1,23 +1,25 @@
 import React from 'react';
+import { Form, Button, Input, Label } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const Form = props => (
-    <form>
-        <label>
+const Userinput = props => (
+    <Form>
+        <Label>
             Weight lifted
-            <input type='number' onChange={props.setWeight} />
-            <select onChange={props.setWeight}>
+            <Input type='number' onChange={props.setWeight} />
+            <Input type='select' onChange={props.setWeight}>
                 <option value='kg'>kg</option>
                 <option value='lb'>lb</option>
-            </select>
-        </label>
+            </Input>
+        </Label>
         <br></br>
-        <label>
+        <Label>
             Amount of repetitions
-            <input type='number' onChange={props.setReps}/>
-        </label>
+            <Input type='number' onChange={props.setReps}/>
+        </Label>
         <br></br>
-        <button onClick={props.clickHandler}>Calculate</button>
-    </form>
+        <Button color='primary' onClick={props.clickHandler}>Calculate <FontAwesomeIcon icon='calculator' /></Button>
+    </Form>
 )
 
-export default Form;
+export default Userinput;

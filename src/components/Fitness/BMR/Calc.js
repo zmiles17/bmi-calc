@@ -1,5 +1,5 @@
 import React from 'react';
-import Form from './Form';
+import Userinput from './Form';
 import Result from './Result';
 
 class BMRcalc extends React.Component {
@@ -57,7 +57,7 @@ class BMRcalc extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <Form
+                <Userinput
                     setGender={this.setGender}
                     changeWeight={this.setWeight}
                     changeHeight={this.setHeight}

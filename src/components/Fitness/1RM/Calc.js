@@ -1,5 +1,5 @@
 import React from 'react';
-import Form from './Form';
+import Userinput from './Form';
 import Result from './Result';
 
 class OneRepMax extends React.Component {
@@ -29,7 +29,7 @@ class OneRepMax extends React.Component {
     render () {
         return (
             <div>
-                <Form setWeight={this.setWeight} setReps={this.setReps} clickHandler={this.handleClick} />
+                <Userinput setWeight={this.setWeight} setReps={this.setReps} clickHandler={this.handleClick} />
                 <Result OneRepMax={this.state.OneRepMax} />
             </div>
         )

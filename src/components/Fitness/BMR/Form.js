@@ -1,50 +1,51 @@
 import React from 'react';
+import { Form, Label, Input, Button } from 'reactstrap';
 
 let ages = Array(100).fill(null);
-const Form = props => (
-    <form>
-        <label>
-            <input type='radio' name='gender' defaultChecked onChange={props.setGender} />
+const Userinput = props => (
+    <Form>
+        <Label check>
+            <Input type='radio' name='gender' defaultChecked onChange={props.setGender} />
             Male
-        </label>
-        <label>
-            <input type='radio' name='gender' onChange={props.setGender} />
+        </Label>
+        <Label>
+            <Input type='radio' name='gender' onChange={props.setGender} />{' '}
             Female
-        </label>
+        </Label>
         <br></br>
-        <input placeholder='weight' type='number' onChange={props.changeWeight} required />
-        <select onChange={props.changeWeight}>
+        <Input placeholder='weight' type='number' onChange={props.changeWeight} required />
+        <Input type='select' onChange={props.changeWeight}>
             <option value='kg'>kg</option>
             <option value='lb'>lb</option>
-        </select>
+        </Input>
         <br></br>
-        <input placeholder='height' type='number' onChange={props.changeHeight} required />
-        <select onChange={props.changeHeight}>
+        <Input placeholder='height' type='number' onChange={props.changeHeight} required />
+        <Input type='select' onChange={props.changeHeight}>
             <option value='in'>in</option>
             <option value='cm'>cm</option>
-        </select>
+        </Input>
         <br></br>
-        <label>
+        <Label>
             Age
-        <select onChange={props.setAge}>
+        <Input type='select' onChange={props.setAge}>
                 {ages.map((age, i) => <option key={i}>{i + 1}</option>)}
-            </select>
+            </Input>
             Years
-        </label>
+        </Label>
         <br></br>
-        <label>
+        <Label>
             Activity Level
-            <select onChange={props.setActivity}>
+            <Input type='select' onChange={props.setActivity}>
                 <option value='Sedentary'>Little to no exercise</option>
                 <option value='Light'>Light exercise/sports 1-3 days/week</option>
                 <option value='Moderate'>Moderate exercise/sports 3-5 days/week</option>
                 <option value='Very'>Hard exercise/sports 6-7 days a week</option>
                 <option value='Extra'>Very hard exercise/sports & physical job or 2x training</option>
-            </select>
-        </label>
+            </Input>
+        </Label>
         <br></br>
-        <button onClick={props.clickHandler}>Calculate</button>
-    </form>
+        <Button onClick={props.clickHandler}>Calculate</Button>
+    </Form>
 )
 
-export default Form;
+export default Userinput;
