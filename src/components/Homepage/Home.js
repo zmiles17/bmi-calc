@@ -32,18 +32,19 @@ const HomepageHeading = ({ mobile }) => (
   <Container text>
     <Header
       as='h1'
-      content='myFitCalc'
       inverted
       style={{
         fontSize: mobile ? '2em' : '4em',
         fontWeight: 'normal',
         marginBottom: 0,
         marginTop: mobile ? '1.5em' : '3em',
-      }}
-    />
+      }}>
+      myFitCalc
+      <Icon name='calculator' />
+    </Header>
     <Header
       as='h2'
-      content='What is more important: Your wealth or your health?'
+      content='A fast and easy solution for assessing wellness.'
       inverted
       style={{
         fontSize: mobile ? '1.5em' : '1.7em',
@@ -211,7 +212,7 @@ ResponsiveContainer.propTypes = {
 
 const HomepageLayout = () => (
   <ResponsiveContainer>
-    
+
     <Segment inverted vertical style={{ padding: '5.59em 0em' }}>
       <Container>
         <Grid divided inverted stackable>
