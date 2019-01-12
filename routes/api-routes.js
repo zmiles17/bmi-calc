@@ -1,9 +1,9 @@
-const User = require('../models/User');
+const db = require('../models/Fitness');
 
 module.exports = function(app) {
 
-    app.get('/api/users', function (req, res) {
-        User.find({})
+    app.get('/api/fitness', function (req, res) {
+        db.find({})
         .then(function(data){
             res.json(data);
         })
@@ -12,8 +12,8 @@ module.exports = function(app) {
         });
     });
 
-    app.post('/api/users', function (req, res) {
-        User.create(req.body)
+    app.post('/api/fitness', function (req, res) {
+        db.create(req.body)
         .then(function(data){
             res.json(data);
         })

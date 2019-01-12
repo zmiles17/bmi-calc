@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
-import HomepageLayout from './components/Homepage/Home';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { HomepageLayout, HomepageHeading } from './components/Homepage/Home';
 import BMIcalc from './components/Fitness/BMI/Calc';
 import BMRcalc from './components/Fitness/BMR/Calc';
 import OneRepMax from './components/Fitness/1RM/Calc';
@@ -11,14 +11,16 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <div className="App">
-          <Route exact path='/' component={HomepageLayout} />
+        <HomepageLayout>
+          <Switch>
+          <Route exact path='/' component={HomepageHeading} />
           <Route exact path='/bmi' component={BMIcalc} />
           <Route exact path='/bmr' component={BMRcalc} />
           <Route exact path='/one-rep-max' component={OneRepMax} />
           <Route exact path='/VO2-max' component={VO2calc} />
           <Route exact path='/target-hr' component={TargetHeartRate} />
-        </div>
+          </Switch>
+        </HomepageLayout>
       </BrowserRouter>
     );
   }

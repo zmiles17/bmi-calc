@@ -1,5 +1,6 @@
 import React from 'react';
-import { Form, Segment, Container, Icon } from 'semantic-ui-react';
+import axios from 'axios';
+import { Form, Message, Container, Icon } from 'semantic-ui-react';
 
 class BMIcalc extends React.Component {
     state = {
@@ -13,10 +14,7 @@ class BMIcalc extends React.Component {
 
     setWeight = event => this.setState({ weight: event.target.value });
 
-    setWeightUnits = event => {
-        console.dir(event.target);
-        this.setState({ weightUnits: event.target.parentNode.children[0].value });
-    }
+    setWeightUnits = event => this.setState({ weightUnits: event.target.parentNode.children[0].value });
 
     setHeight = event => this.setState({ height: event.target.value });
 
@@ -36,22 +34,24 @@ class BMIcalc extends React.Component {
         if (25 <= bmi && bmi < 29.9) category = 'overweight';
         if (bmi >= 30) category = 'obese';
         this.setState({ bmi: bmi, category: category });
+        axios.post('/api/fitness', { bmi: bmi })
+            .then(function (data) {
+                console.log(data);
+            })
     }
 
     render() {
         return (
             <Container>
-                <Form>
+                <Form inverted>
                     <Form.Group widths='equal'>
                         <Form.Input fluid label='Weight' placeholder='Enter your weight' type='number' onChange={this.setWeight} required />
                         <Form.Group inline>
-                            <label>Units</label>
                             <Form.Radio label='pounds' value='lb' name='weight' onChange={this.setWeightUnits} checked={this.state.weightUnits === 'lb'} />
                             <Form.Radio label='kilograms' value='kg' name='weight' onChange={this.setWeightUnits} checked={this.state.weightUnits === 'kg'} />
                         </Form.Group>
                         <Form.Input fluid label='Height' placeholder='Enter your height' type='number' required onChange={this.setHeight} />
                         <Form.Group inline>
-                            <label>Units</label>
                             <Form.Radio label='inches' value='in' name='height' onChange={this.setHeightUnits} checked={this.state.heightUnits === 'in'} />
                             <Form.Radio label='centimeters' value='cm' name='height' onChange={this.setHeightUnits} checked={this.state.heightUnits === 'cm'} />
                         </Form.Group>
@@ -59,16 +59,15 @@ class BMIcalc extends React.Component {
                     </Form.Group>
                 </Form>
                 <Container>
-                    <Segment size='massive'>
-                        {this.state.bmi
-                            ? 'Your body mass index is '
-                            + Math.round(10 * this.state.bmi) / 10
-                            + ', which means you are categorized as '
-                            + this.state.category
-                            + '.'
+                    <Message size='small'>
+                        Your body mass index is: {this.state.bmi
+                            ? Math.round(10 * this.state.bmi) / 10
                             : ''}
-                    </Segment>
-                    <Segment size='small'>Disclaimer: The Body Mass Index is not a reliable indicator of body fat.</Segment>
+                    </Message>
+                    <Message size='small'>
+                        Your BMI category is: {this.state.category ? this.state.category : ''}
+                    </Message>
+                    <Message size='small'>Disclaimer: The Body Mass Index is not a reliable indicator of body fat.</Message>
                 </Container>
             </Container>
         )
