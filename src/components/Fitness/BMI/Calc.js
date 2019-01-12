@@ -1,37 +1,35 @@
 import React from 'react';
-import Userinput from './Form';
-import Result from './Result';
+import { Form, Segment, Container, Icon } from 'semantic-ui-react';
 
 class BMIcalc extends React.Component {
     state = {
         weight: '',
+        weightUnits: 'lb',
         height: '',
+        heightUnits: 'in',
         bmi: '',
         category: ''
     }
 
-    setWeight = event => {
-        let weight;
-        if (event.target.nodeName === 'INPUT') weight = event.target.value + ' ' + event.target.parentNode[1].value;
-        else weight = event.target.parentNode[0].value + ' ' + event.target.value;
-        if (weight.length <= 7) this.setState({ weight: weight });
+    setWeight = event => this.setState({ weight: event.target.value });
+
+    setWeightUnits = event => {
+        console.dir(event.target);
+        this.setState({ weightUnits: event.target.parentNode.children[0].value });
     }
 
-    setHeight = event => {
-        let height;
-        if (event.target.nodeName === 'INPUT') height = event.target.value + ' ' + event.target.parentNode[3].value;
-        else height = event.target.parentNode[2].value + ' ' + event.target.value;
-        if (height.length <= 7) this.setState({ height: height });
-    }
+    setHeight = event => this.setState({ height: event.target.value });
 
-    calculateBMI = event => {
+    setHeightUnits = event => this.setState({ heightUnits: event.target.parentNode.children[0].value });
+
+    clickHandler = event => {
         event.preventDefault();
         let category;
         let weight = parseInt(this.state.weight);
         let height = parseInt(this.state.height);
-        if (this.state.weight.includes('lb')) weight /= 2.205;
-        if (this.state.height.includes('cm')) height /= 100;
-        if (this.state.height.includes('in')) height *= 0.0254;
+        if (this.state.weightUnits === 'lb') weight /= 2.205;
+        if (this.state.heightUnits === 'cm') height /= 100;
+        if (this.state.heightUnits === 'in') height *= 0.0254;
         const bmi = weight / Math.pow(height, 2);
         if (bmi < 18.5) category = 'underweight';
         if (18.5 <= bmi && bmi < 24.9) category = 'normal weight';
@@ -42,10 +40,37 @@ class BMIcalc extends React.Component {
 
     render() {
         return (
-            <React.Fragment>
-                <Userinput changeWeight={this.setWeight} changeHeight={this.setHeight} clickHandler={this.calculateBMI} />
-                <Result bmi={this.state.bmi} category={this.state.category} />
-            </React.Fragment>
+            <Container>
+                <Form>
+                    <Form.Group widths='equal'>
+                        <Form.Input fluid label='Weight' placeholder='Enter your weight' type='number' onChange={this.setWeight} required />
+                        <Form.Group inline>
+                            <label>Units</label>
+                            <Form.Radio label='pounds' value='lb' name='weight' onChange={this.setWeightUnits} checked={this.state.weightUnits === 'lb'} />
+                            <Form.Radio label='kilograms' value='kg' name='weight' onChange={this.setWeightUnits} checked={this.state.weightUnits === 'kg'} />
+                        </Form.Group>
+                        <Form.Input fluid label='Height' placeholder='Enter your height' type='number' required onChange={this.setHeight} />
+                        <Form.Group inline>
+                            <label>Units</label>
+                            <Form.Radio label='inches' value='in' name='height' onChange={this.setHeightUnits} checked={this.state.heightUnits === 'in'} />
+                            <Form.Radio label='centimeters' value='cm' name='height' onChange={this.setHeightUnits} checked={this.state.heightUnits === 'cm'} />
+                        </Form.Group>
+                        <Form.Button color='blue' onClick={this.clickHandler}>Calculate <Icon name='calculator' /></Form.Button>
+                    </Form.Group>
+                </Form>
+                <Container>
+                    <Segment size='massive'>
+                        {this.state.bmi
+                            ? 'Your body mass index is '
+                            + Math.round(10 * this.state.bmi) / 10
+                            + ', which means you are categorized as '
+                            + this.state.category
+                            + '.'
+                            : ''}
+                    </Segment>
+                    <Segment size='small'>Disclaimer: The Body Mass Index is not a reliable indicator of body fat.</Segment>
+                </Container>
+            </Container>
         )
     }
 }
