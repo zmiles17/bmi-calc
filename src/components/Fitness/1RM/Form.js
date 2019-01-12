@@ -1,24 +1,17 @@
 import React from 'react';
-import { Form, Button, Input, Label } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Form, Icon } from 'semantic-ui-react';
 
 const Userinput = props => (
     <Form>
-        <Label>
-            Weight lifted
-            <Input type='number' onChange={props.setWeight} />
-            <Input type='select' onChange={props.setWeight}>
+        <label>Weight lifted</label>
+            <Form.Input type='number'  />
+            <Form.Select type='select' >
                 <option value='kg'>kg</option>
                 <option value='lb'>lb</option>
-            </Input>
-        </Label>
-        <br></br>
-        <Label>
-            Amount of repetitions
-            <Input type='number' onChange={props.setReps}/>
-        </Label>
-        <br></br>
-        <Button color='primary' onClick={props.clickHandler}>Calculate <FontAwesomeIcon icon='calculator' /></Button>
+            </Form.Select>
+        <label> Amount of repetitions</label>
+            <Form.Input type='number' />
+        <Form.Button color='primary' >Calculate <Icon name='calculator' /></Form.Button>
     </Form>
 )
 
