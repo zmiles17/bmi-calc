@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const FitSchema = new Schema({
     bmi: {
         type: Number,
+        required: [true, 'Need to give valid inputs']
     }
 });
 
