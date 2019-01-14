@@ -6,6 +6,12 @@ import BMRcalc from './components/Fitness/BMR/Calc';
 import OneRepMax from './components/Fitness/1RM/Calc';
 import VO2calc from './components/Fitness/VO2/Calc';
 import TargetHeartRate from './components/Fitness/THR/Calc';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faDumbbell } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faDumbbell)
+
+
 
 class App extends Component {
   render() {
