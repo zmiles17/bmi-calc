@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Form, Message, Container, Icon } from 'semantic-ui-react';
+import { Form, Segment, Container, Icon } from 'semantic-ui-react';
 
 class BMIcalc extends React.Component {
     state = {
@@ -59,15 +59,15 @@ class BMIcalc extends React.Component {
                     </Form.Group>
                 </Form>
                 <Container>
-                    <Message size='small'>
-                        Your body mass index is: {this.state.bmi
+                    <Segment size='large' vertical inverted>
+                    Disclaimer: The Body Mass Index is not a reliable indicator of body fat.
+                    <hr></hr>
+                        Your body mass index is: <b>{this.state.bmi
                             ? Math.round(10 * this.state.bmi) / 10
-                            : ''}
-                    </Message>
-                    <Message size='small'>
-                        Your BMI category is: {this.state.category ? this.state.category : ''}
-                    </Message>
-                    <Message size='small'>Disclaimer: The Body Mass Index is not a reliable indicator of body fat.</Message>
+                            : ''}</b>
+                    <hr></hr>
+                        Your BMI category is: <b>{this.state.category ? this.state.category : ''}</b>
+                        </Segment>
                 </Container>
             </Container>
         )
