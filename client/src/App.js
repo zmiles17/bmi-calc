@@ -11,8 +11,6 @@ import { faDumbbell } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faDumbbell)
 
-
-
 class App extends Component {
   render() {
     return (

@@ -41,7 +41,6 @@ class Welcome extends Component {
             return (<Redirect to={'/home'} />)
         }
 
-
         const responseGoogle = (response) => {
             console.log("google console");
             console.log(response);
@@ -54,7 +53,6 @@ class Welcome extends Component {
                 <div className="medium-12 columns">
                     <div className="medium-12 columns">
                         <h2 id="welcomeText"></h2>
-
                         <GoogleLogin
                             clientId="Your Google ID"
                             buttonText="Login with Google"
