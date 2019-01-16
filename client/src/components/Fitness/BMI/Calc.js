@@ -55,19 +55,19 @@ class BMIcalc extends React.Component {
                             <Form.Radio label='inches' value='in' name='height' onChange={this.setHeightUnits} checked={this.state.heightUnits === 'in'} />
                             <Form.Radio label='centimeters' value='cm' name='height' onChange={this.setHeightUnits} checked={this.state.heightUnits === 'cm'} />
                         </Form.Group>
-                        <Form.Button color='blue' onClick={this.clickHandler}>Calculate <Icon name='calculator' /></Form.Button>
                     </Form.Group>
+                    <Form.Button color='blue' onClick={this.clickHandler}>Calculate <Icon name='calculator' /></Form.Button>
                 </Form>
                 <Container>
                     <Segment size='large' vertical inverted>
-                    Disclaimer: The Body Mass Index is not a reliable indicator of body fat.
+                        Disclaimer: The Body Mass Index is not a reliable indicator of body fat.
                     <hr></hr>
                         Your body mass index is: <b>{this.state.bmi
                             ? Math.round(10 * this.state.bmi) / 10
                             : ''}</b>
-                    <hr></hr>
+                        <hr></hr>
                         Your BMI category is: <b>{this.state.category ? this.state.category : ''}</b>
-                        </Segment>
+                    </Segment>
                 </Container>
             </Container>
         )

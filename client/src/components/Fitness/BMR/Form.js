@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Segment, Icon } from 'semantic-ui-react';
+import { Form, Segment, Icon, Container } from 'semantic-ui-react';
 
 const options = [
     { key: '1', text: 'Little to no exercise', value: 'Sedentary' },
@@ -9,31 +9,31 @@ const options = [
     { key: '5', text: 'Very hard exercise/sports & physical job or 2x training', value: 'Extra' }
 ]
 
+const genderOptions = [
+    { key: 'm', text: 'Male', value: 'male' },
+    { key: 'f', text: 'Female', value: 'female' }
+]
 const Userinput = props => (
-    <Segment inverted>
+    <Container>
         <Form inverted>
-            <Form.Group>
-                <label>Gender</label>
-                <Form.Radio label='Male' name='gender' />
-                <Form.Radio label='Female' name='gender' />
-            </Form.Group>
-            <Form.Input label='Weight' placeholder='Enter your weight' type='number' required />
-            <Form.Group inline>
-                <Form.Radio label='pounds' value='lb' name='weight' />
-                <Form.Radio label='kilograms' value='kg' name='weight' />
-            </Form.Group>
-            <Form.Input fluid label='Height' placeholder='Enter your height' type='number' required />
-            <Form.Group inline>
-                <Form.Radio label='inches' value='in' name='height' />
-                <Form.Radio label='centimeters' value='cm' name='height' />
-            </Form.Group>
-            <Form.Group>
+            <Form.Group widths='equal'>
+                <Form.Input fluid label='Weight' placeholder='Weight' type='number' required />
+                <Form.Group inline>
+                    <Form.Radio label='pounds' value='lb' name='weight' />
+                    <Form.Radio label='kilograms' value='kg' name='weight' />
+                </Form.Group>
+                <Form.Input fluid label='Height' placeholder='Height' type='number' required />
+                <Form.Group inline>
+                    <Form.Radio label='inches' value='in' name='height' />
+                    <Form.Radio label='centimeters' value='cm' name='height' />
+                </Form.Group>
                 <Form.Input label='Age' placeholder='Enter your age' type='number' required />
+                <Form.Select fluid label='Gender' options={genderOptions} placeholder='Gender' />
                 <Form.Select label='Activity Level' placeholder='Activity Level' options={options} />
             </Form.Group>
             <Form.Button color='blue'>Calculate <Icon name='calculator' /></Form.Button>
         </Form>
-    </Segment>
+    </Container>
 )
 
 export default Userinput;

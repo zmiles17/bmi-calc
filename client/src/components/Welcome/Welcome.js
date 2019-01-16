@@ -54,7 +54,7 @@ class Welcome extends Component {
                     <div className="medium-12 columns">
                         <h2 id="welcomeText"></h2>
                         <GoogleLogin
-                            clientId="Your Google ID"
+                            clientId="212183881598-crat4ugt0pram2fiaanannq4p6vmj8mn.apps.googleusercontent.com"
                             buttonText="Login with Google"
                             onSuccess={responseGoogle}
                             onFailure={responseGoogle} />

@@ -1,13 +1,10 @@
+import axios from 'axios';
+
 export function PostData(userData) {
-    // let BaseURL = 'https://apipaypal.9lessons.info/apipaypal/';
-    let BaseURL = 'http://localhost:3001/api/users';
 
     return new Promise((resolve, reject) => {
-        fetch(BaseURL, {
-            method: 'POST',
-            body: JSON.stringify(userData)
-        })
-            .then((response) => response.json())
+        axios.post('/api/users', JSON.stringify(userData))
+            .then((response) => console.log(response))
             .then((res) => {
                 resolve(res);
             })
