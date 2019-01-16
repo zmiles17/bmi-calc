@@ -27,7 +27,7 @@ class Welcome extends Component {
         }
 
         if (postData) {
-            PostData('signup', postData).then((result) => {
+            PostData(postData).then((result) => {
                 let responseJson = result;
                 sessionStorage.setItem("userData", JSON.stringify(responseJson));
                 this.setState({ redirect: true });
@@ -52,10 +52,10 @@ class Welcome extends Component {
             <div className="row body">
                 <div className="medium-12 columns">
                     <div className="medium-12 columns">
-                        <h2 id="welcomeText"></h2>
+                        <h2 id="welcomeText">Welcome to myFitCalc!</h2>
                         <GoogleLogin
                             clientId="212183881598-crat4ugt0pram2fiaanannq4p6vmj8mn.apps.googleusercontent.com"
-                            buttonText="Login with Google"
+                            buttonText="Get Started"
                             onSuccess={responseGoogle}
                             onFailure={responseGoogle} />
 

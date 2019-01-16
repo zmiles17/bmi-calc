@@ -4,46 +4,48 @@ import Result from './Result';
 
 class BMRcalc extends React.Component {
     state = {
-        gender: 'Male',
-        height: '',
-        weight: '',
-        age: '1',
+        gender: '',
+        height: Number,
+        heightUnits: 'in',
+        weight: Number,
+        weightUnits: 'lb',
+        age: Number,
         activity_level: '',
-        BMR: '',
-        calories: ''
+        BMR: Number,
+        calories: Number
     }
 
-    setGender = event => this.setState({ gender: event.target.parentNode.childNodes[1].textContent });
+    setGender = event => this.setState({ gender: event.target.textContent });
 
-    setWeight = event => {
-        let weight;
-        if (event.target.nodeName === 'INPUT') weight = event.target.value + ' ' + event.target.parentNode[3].value;
-        else weight = event.target.parentNode[2].value + ' ' + event.target.value;
-        if (weight.length <= 7) this.setState({ weight: weight });
+    setWeight = event => this.setState({ weight: event.target.valueAsNumber });
+
+    setWeightUnits = event => this.setState({ weightUnits: event.target.parentNode.children[0].value });
+
+    setHeight = event => this.setState({ height: event.target.valueAsNumber });
+
+    setHeightUnits = event => this.setState({ heightUnits: event.target.parentNode.children[0].value });
+
+    setAge = event => this.setState({ age: event.target.valueAsNumber });
+
+    setActivity = event => {
+        if(event.target.textContent === 'Little to no exercise')this.setState({ activity_level: 'Sedentary' });
+        if(event.target.textContent === 'Light exercise/sports 1-3 days/week')this.setState({ activity_level: 'Light' });
+        if(event.target.textContent === 'Moderate exercise/sports 3-5 days/week')this.setState({ activity_level: 'Moderate' });
+        if(event.target.textContent === 'Hard exercise/sports 6-7 days a week')this.setState({ activity_level: 'Very' });
+        if(event.target.textContent === 'Very hard exercise/sports & physical job or 2x training')this.setState({ activity_level: 'Extra' });
     }
-
-    setHeight = event => {
-        let height;
-        if (event.target.nodeName === 'INPUT') height = event.target.value + ' ' + event.target.parentNode[5].value;
-        else height = event.target.parentNode[4].value + ' ' + event.target.value;
-        if (height.length <= 7) this.setState({ height: height });
-    }
-
-    setAge = event => this.setState({ age: event.target.value });
-
-    setActivity = event => this.setState({ activity_level: event.target.value });
 
     calculateBMR = event => {
         event.preventDefault();
         let BMR;
         let calories;
-        let height = parseInt(this.state.height);
-        let weight = parseInt(this.state.weight);
+        let height = this.state.height;
+        let weight = this.state.weight;
         const gender = this.state.gender;
-        const age = parseInt(this.state.age);
+        const age = this.state.age;
         const activity_level = this.state.activity_level;
-        if (this.state.height.includes('cm')) height /= 2.54;
-        if (this.state.weight.includes('kg')) weight *= 2.205;
+        if (this.state.height.toString().includes('cm')) height /= 2.54;
+        if (this.state.weight.toString().includes('kg')) weight *= 2.205;
         if (gender === 'Male') BMR = 66 + (6.23 * weight) + (12.7 * height) - (6.8 * age);
         if (gender === 'Female') BMR = 655 + (4.35 * weight) + (4.7 * height) - (4.7 * age);
         if (activity_level === 'Sedentary') calories = BMR * 1.2;
@@ -59,11 +61,15 @@ class BMRcalc extends React.Component {
             <React.Fragment>
                 <Userinput
                     setGender={this.setGender}
-                    changeWeight={this.setWeight}
-                    changeHeight={this.setHeight}
+                    setWeight={this.setWeight}
+                    setWeightUnits={this.setWeightUnits}
+                    setHeight={this.setHeight}
+                    setHeightUnits={this.setHeightUnits}
                     setAge={this.setAge}
                     setActivity={this.setActivity}
-                    clickHandler={this.calculateBMR} />
+                    clickHandler={this.calculateBMR}
+                    heightUnits={this.state.heightUnits}
+                    weightUnits={this.state.weightUnits} />
                 <Result BMR={this.state.BMR} calories={this.state.calories} />
             </React.Fragment>
         )

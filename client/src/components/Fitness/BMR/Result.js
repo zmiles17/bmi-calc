@@ -3,8 +3,8 @@ import { Container, Segment } from 'semantic-ui-react';
 
 const Result = props => (
     <Container>
-        <Segment inverted>Your Basal Metabolic Rate is: {props.BMR ? Math.round(props.BMR) : ''}
-        <hr></hr>Calories needed to maintain your current weight: {props.calories ? Math.round(props.calories) : ''}</Segment>
+        <Segment inverted size='large'>Your Basal Metabolic Rate is: {!isNaN(props.BMR) ? Math.round(props.BMR) : ''}
+        <hr></hr>Calories needed to maintain your current weight: {!isNaN(props.calories) ? Math.round(props.calories) : ''}</Segment>
         </Container>
     
 )

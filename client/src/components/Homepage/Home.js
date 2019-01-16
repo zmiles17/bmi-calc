@@ -22,8 +22,8 @@ class Home extends React.Component {
 
         return (
             <div >
-                Welcome {this.state.name}
                 <HomepageHeading />
+                Welcome {this.state.name}
             </div>
         );
     }
