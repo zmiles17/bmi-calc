@@ -1,26 +1,37 @@
-const db = require('../models/Fitness');
+const fitness = require('../models/Fitness');
+const users = require('../models/User');
 
-module.exports = function(app) {
+module.exports = function (app) {
 
     app.get('/api/fitness', function (req, res) {
-        db.find({})
-        .then(function(data){
-            res.json(data);
-        })
-        .catch(function(err){
-            res.json(err);
-        });
+        fitness.find({})
+            .then(function (data) {
+                res.json(data);
+            })
+            .catch(function (err) {
+                res.json(err);
+            });
     });
 
     app.post('/api/fitness', function (req, res) {
-        db.create(req.body)
-        .then(function(data){
-            res.json(data);
-        })
-        .catch(function(err){
-            res.json(err);
-        });
+        fitness.create(req.body)
+            .then(function (data) {
+                res.json(data);
+            })
+            .catch(function (err) {
+                res.json(err);
+            });
     });
-    
+
+    app.post('/api/users', function (req, res) {
+        users.create(req.body)
+            .then(function (data) {
+                res.json(data);
+            })
+            .catch(function (err) {
+                res.json(err);
+            })
+    })
+
 }
 
