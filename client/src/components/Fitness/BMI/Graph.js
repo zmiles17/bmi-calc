@@ -1,39 +1,36 @@
 import React from 'react';
 import axios from 'axios';
-import { ScatterChart, CartesianGrid, XAxis, YAxis, ZAxis, Tooltip, Legend, Scatter } from 'recharts';
+import { AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Label } from 'recharts';
+
+
 
 class BMIgraph extends React.Component {
     state = {
-        height: [],
-        weight: [],
-        bmi : []
     }
     componentDidMount() {
-        let heightArr = [];
-        let weightArr = [];
-        let bmiArr = [];
+        let data = [];
         axios.get('/api/fitness')
-            .then(data =>  {
-                [...data.data].forEach((item, i) => {
-                    weightArr.push(item.weight)
-                    heightArr.push(item.height)
-                    bmiArr.push(item.bmi)
-                })
-                this.setState({ height: heightArr, weight: weightArr, bmi: bmiArr })
+            .then(res => {
+                [...res.data].forEach((item, i) => data.push(item))
+                this.setState({ data: data })
             })
     }
     render() {
+        const data = this.state.data;
         return (
-            <ScatterChart width={730} height={250}
-                margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
+            <AreaChart width={600} height={300} data={data}
+                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                <XAxis dataKey='weight'>
+                <Label value='Weight (pounds)' offset={0} position="insideBottom"/>
+                </XAxis>
+                <YAxis dataKey='height'>
+                    <Label value='Height (inches)' />
+                </YAxis>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="x" name="height" unit="in" />
-                <YAxis dataKey="y" name="weight" unit="lb" />
-                <ZAxis dataKey="z" range={[0, 50]} name="bmi" />
-                <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+                <Tooltip />
                 <Legend />
-                <Scatter name="A school" data={this.state} fill="#8884d8" />
-            </ScatterChart>
+                <Area type="monotone" dataKey="bmi" stroke='#ffc658' fill='#ffc658' />
+            </AreaChart>
         )
     }
 }

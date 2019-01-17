@@ -35,7 +35,7 @@ class BMIcalc extends React.Component {
         if (25 <= bmi && bmi < 29.9) category = 'overweight';
         if (bmi >= 30) category = 'obese';
         this.setState({ bmi: Math.round(10 * bmi) / 10, category: category });
-        axios.post('/api/fitness', { bmi: Math.round(10 * bmi) / 10, weight: Math.round(weight * 22.05) / 10, height: Math.round(height * 393.7) / 10})
+        axios.post('/api/fitness', { bmi: Math.round(10 * bmi) / 10, weight: Math.round(weight * 22.05) / 10, height: Math.round(height * 393.7) / 10, category: category })
             .then(function (data) {
                 console.log(data);
             })

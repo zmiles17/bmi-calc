@@ -9,6 +9,7 @@ const FitSchema = new Schema({
     },
     weight: { type: Number, required: true },
     height: { type: Number, required: true },
+    category: {type: 'String'},
     _user: {type: Schema.Types.ObjectId, ref: 'User'}
 });
 
