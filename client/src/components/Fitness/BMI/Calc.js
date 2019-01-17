@@ -70,7 +70,11 @@ class BMIcalc extends React.Component {
                         Your BMI category is: <b>{this.state.category ? this.state.category : ''}</b>
                     </Segment>
                 </Container>
+                <br></br>
+                <br></br>
+                <Container text>
                 <BMIgraph />
+                </Container>
             </Container>
         )
     }
