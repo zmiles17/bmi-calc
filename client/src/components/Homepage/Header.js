@@ -104,12 +104,12 @@ class DesktopContainer extends Component {
                 <Menu.Item as={Link} to={`/home`} name='home' onClick={this.handleItemClick} active={activeItem === 'home'}>Home</Menu.Item>
                 <Menu.Item as={Link} to={`/bmi`} name='bmi' onClick={this.handleItemClick} active={activeItem === 'bmi'}>Body Mass Index</Menu.Item>
                 <Menu.Item as={Link} to={`/bmr`} name='bmr' onClick={this.handleItemClick} active={activeItem === 'bmr'}>Basal Metabolic Rate</Menu.Item>
-                <Menu.Item position='right'>
+                {/* <Menu.Item position='right'>
                   <Button as={GoogleLogout}
                     onLogoutSuccess={() => logout()}>
                     Logout
                   </Button>
-                </Menu.Item>
+                </Menu.Item> */}
               </Container>
             </Menu>
             {children}
@@ -161,13 +161,13 @@ class MobileContainer extends Component {
           <Menu.Item as={Link} to={`/home`} name='home' onClick={this.handleItemClick} active={activeItem === 'home'}>Home</Menu.Item>
           <Menu.Item as={Link} to={`/bmi`} name='bmi' onClick={this.handleItemClick} active={activeItem === 'bmi'}>Body Mass Index</Menu.Item>
           <Menu.Item as={Link} to={`/bmr`} name='bmr' onClick={this.handleItemClick} active={activeItem === 'bmr'}>Basal Metabolic Rate</Menu.Item>
-          <Menu.Item>
+          {/* <Menu.Item>
             <GoogleLogout
               buttonText='Logout'
               onLogoutSuccess={() => logout()}>
               Logout
                   </GoogleLogout>
-          </Menu.Item>
+          </Menu.Item> */}
         </Sidebar>
 
         <Sidebar.Pusher dimmed={sidebarOpened}>

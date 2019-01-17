@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+import { ScatterChart, Scatter, CartesianGrid, XAxis, YAxis, ZAxis, Tooltip, Legend } from 'recharts';
 
 
 
@@ -10,7 +10,7 @@ class BMIgraph extends React.Component {
     getData() {
         let data;
         axios.get('/api/fitness').then(res => {
-            data = res.data.sort((a, b) => a.bmi - b.bmi);
+            data = res.data.sort((a, b) => a.weight - b.weight);
             this.setState({ data: data })
         })
     }
@@ -21,17 +21,17 @@ class BMIgraph extends React.Component {
 
     render() {
         return (
-            <LineChart width={730} height={400} data={this.state.data}
+            <ScatterChart width={730} height={400} 
                 margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey='category' type='category' label={{ value: 'BMI Category', offset: -5, position: 'insideBottom' }} allowDuplicatedCategory={false} />
-                <YAxis dataKey='height' label={{ value: 'Height (inches)', angle: -90, position: 'insideLeft' }} />
+                <ZAxis dataKey='category' type='category' />
+                <YAxis dataKey='height' unit=' in' label={{ value: 'Height', angle: -90, position: 'left', offset: -5 }} />
+                <XAxis dataKey='weight' name='weight' unit=' lb' label={{ value: 'Weight', position: 'bottom', offset: -5 }} allowDuplicatedCategory={false}/>
                 <CartesianGrid strokeDasharray="3 3" />
                 <Tooltip />
                 <Legend align='right' />
-                {/* <Line type="monotone" dataKey="weight" stroke='#ffc658' /> */}
-                <Line type="monotone" dataKey="bmi" stroke="#82ca9d" />
-            </LineChart>
+                <Scatter name='bmi' data={this.state.data} fill="#82ca9d" />
+            </ScatterChart>
         )
     }
 }
