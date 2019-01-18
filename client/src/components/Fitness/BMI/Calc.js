@@ -15,10 +15,10 @@ class BMIcalc extends React.Component {
     }
 
     getData() {
-        let data;
+        // let data;
         axios.get('/api/fitness').then(res => {
-            data = res.data.sort((a, b) => a.weight - b.weight);
-            this.setState({ data: data })
+            // data = res.data.sort((a, b) => a.weight - b.weight);
+            this.setState({ data: res.data })
         })
     }
 
@@ -39,6 +39,7 @@ class BMIcalc extends React.Component {
         let category;
         let weight = parseInt(this.state.weight);
         let height = parseInt(this.state.height);
+        if(weight < 0 || height < 0) return 'error';
         if (this.state.weightUnits === 'lb') weight /= 2.205;
         if (this.state.heightUnits === 'cm') height /= 100;
         if (this.state.heightUnits === 'in') height *= 0.0254;
@@ -87,17 +88,11 @@ class BMIcalc extends React.Component {
                     </Header>
                 </Divider>
                 {this.state.bmi ? 
-                <Message error={this.state.bmi && (this.state.bmi < 18.5 || this.state.bmi >= 25)} size='large' vertical success={18.5 <= this.state.bmi && this.state.bmi < 25}>
-                    Your Body Mass Index is: <b>{this.state.bmi
-                        ? this.state.bmi
-                        : ''}</b>
+                <Message negative={this.state.bmi && (this.state.bmi < 18.5 || this.state.bmi >= 25)} size='large' vertical positive={18.5 <= this.state.bmi && this.state.bmi < 25}>
+                    Your Body Mass Index is: <b>{this.state.bmi}</b>
                     <br></br>
-                    Your BMI category is: <b>{this.state.category ? this.state.category : ''}</b>
+                    Your BMI category is: <b>{this.state.category}</b>
                 </Message> : ''}
-
-
-
-
                 <BMIgraph data={this.state.data} />
             </Container>
 
