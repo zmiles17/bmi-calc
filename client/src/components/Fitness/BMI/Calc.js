@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import BMIgraph from './Graph';
-import { Form, Segment, Container, Icon } from 'semantic-ui-react';
+import { Form, Message, Container, Icon, Divider, Header } from 'semantic-ui-react';
 
 class BMIcalc extends React.Component {
     state = {
@@ -10,7 +10,20 @@ class BMIcalc extends React.Component {
         height: '',
         heightUnits: 'in',
         bmi: '',
-        category: ''
+        category: '',
+        data: []
+    }
+
+    getData() {
+        let data;
+        axios.get('/api/fitness').then(res => {
+            data = res.data.sort((a, b) => a.weight - b.weight);
+            this.setState({ data: data })
+        })
+    }
+
+    componentDidMount() {
+        this.getData();
     }
 
     setWeight = event => this.setState({ weight: event.target.value });
@@ -31,51 +44,63 @@ class BMIcalc extends React.Component {
         if (this.state.heightUnits === 'in') height *= 0.0254;
         const bmi = weight / Math.pow(height, 2);
         if (bmi < 18.5) category = 'underweight';
-        if (18.5 <= bmi && bmi < 24.9) category = 'normal weight';
+        if (18.5 <= bmi && bmi < 25) category = 'normal weight';
         if (25 <= bmi && bmi < 29.9) category = 'overweight';
         if (bmi >= 30) category = 'obese';
         this.setState({ bmi: Math.round(10 * bmi) / 10, category: category });
         axios.post('/api/fitness', { bmi: Math.round(10 * bmi) / 10, weight: Math.round(weight * 22.05) / 10, height: Math.round(height * 393.7) / 10, category: category })
-            .then(function (data) {
-                console.log(data);
+            .then(data => {
+                console.log(data)
+                this.getData()
             })
     }
 
     render() {
         return (
-            <Container>
+            <Container text>
+            <Divider horizontal>
+                    <Header as='h4' inverted>
+                        <Icon name='write' />
+                        Form
+                    </Header>
+                </Divider>
                 <Form inverted>
                     <Form.Group widths='equal'>
-                        <Form.Input fluid label='Weight' placeholder='Enter your weight' type='number' onChange={this.setWeight} required />
+                        <Form.Input fluid error={this.state.weight < 0} label='Weight' placeholder='Enter your weight' type='number' onChange={this.setWeight} required />
                         <Form.Group inline>
                             <Form.Radio label='pounds' value='lb' name='weight' onChange={this.setWeightUnits} checked={this.state.weightUnits === 'lb'} />
                             <Form.Radio label='kilograms' value='kg' name='weight' onChange={this.setWeightUnits} checked={this.state.weightUnits === 'kg'} />
                         </Form.Group>
-                        <Form.Input fluid label='Height' placeholder='Enter your height' type='number' required onChange={this.setHeight} />
+                        <Form.Input fluid error={this.state.height < 0} label='Height' placeholder='Enter your height' type='number' required onChange={this.setHeight} />
                         <Form.Group inline>
                             <Form.Radio label='inches' value='in' name='height' onChange={this.setHeightUnits} checked={this.state.heightUnits === 'in'} />
                             <Form.Radio label='centimeters' value='cm' name='height' onChange={this.setHeightUnits} checked={this.state.heightUnits === 'cm'} />
                         </Form.Group>
                     </Form.Group>
-                    <Form.Button color='blue' onClick={this.clickHandler}>Calculate <Icon name='calculator' /></Form.Button>
+                    <Form.Button color='blue' onClick={this.clickHandler}>Calculate<Icon corner='top right' name='calculator' /></Form.Button>
                 </Form>
-                <Container>
-                    <Segment size='large' vertical inverted>
-                        Disclaimer: The Body Mass Index is not a reliable indicator of body fat.
-                    <hr></hr>
-                        Your body mass index is: <b>{this.state.bmi
-                            ? this.state.bmi
-                            : ''}</b>
-                        <hr></hr>
-                        Your BMI category is: <b>{this.state.category ? this.state.category : ''}</b>
-                    </Segment>
-                </Container>
                 <br></br>
-                <br></br>
-                <Container text>
-                <BMIgraph />
-                </Container>
+                <Divider horizontal>
+                    <Header as='h4' inverted>
+                        <Icon name='chart line' />
+                        Results
+                    </Header>
+                </Divider>
+                {this.state.bmi ? 
+                <Message error={this.state.bmi && (this.state.bmi < 18.5 || this.state.bmi >= 25)} size='large' vertical success={18.5 <= this.state.bmi && this.state.bmi < 25}>
+                    Your Body Mass Index is: <b>{this.state.bmi
+                        ? this.state.bmi
+                        : ''}</b>
+                    <br></br>
+                    Your BMI category is: <b>{this.state.category ? this.state.category : ''}</b>
+                </Message> : ''}
+
+
+
+
+                <BMIgraph data={this.state.data} />
             </Container>
+
         )
     }
 }

@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { GoogleLogout } from 'react-google-login';
+// import { GoogleLogout } from 'react-google-login';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  Button,
+  // Button,
   Container,
   Header,
   Icon,
@@ -74,11 +74,11 @@ class DesktopContainer extends Component {
     const { children } = this.props
     const { fixed } = this.state
     const { activeItem } = this.state
-    const logout = (response) => {
-      console.log(response);
-      sessionStorage.clear();
-      this.setState({ isLoggedIn: false })
-    }
+    // const logout = (response) => {
+    //   console.log(response);
+    //   sessionStorage.clear();
+    //   this.setState({ isLoggedIn: false })
+    // }
 
     return (
       <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth}>
@@ -138,11 +138,11 @@ class MobileContainer extends Component {
     const { children } = this.props
     const { sidebarOpened } = this.state
     const { activeItem } = this.state
-    const logout = (response) => {
-      console.log(response);
-      sessionStorage.clear();
-      this.setState({ isLoggedIn: false })
-    }
+    // const logout = (response) => {
+    //   console.log(response);
+    //   sessionStorage.clear();
+    //   this.setState({ isLoggedIn: false })
+    // }
 
     return (
       <Responsive

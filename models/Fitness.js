@@ -7,9 +7,9 @@ const FitSchema = new Schema({
         type: Number,
         required: [true, 'Need to give valid inputs']
     },
-    weight: { type: Number, required: true },
-    height: { type: Number, required: true },
-    category: {type: 'String'},
+    weight: { type: Number, required: true, min: 0, max: 500 },
+    height: { type: Number, required: true, min: 0, max: 100 },
+    category: {type: 'String', required: true},
     _user: {type: Schema.Types.ObjectId, ref: 'User'}
 });
 

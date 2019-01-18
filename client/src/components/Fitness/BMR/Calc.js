@@ -1,4 +1,5 @@
 import React from 'react';
+import { Container, Divider, Header, Icon } from 'semantic-ui-react';
 import Userinput from './Form';
 import Result from './Result';
 
@@ -28,11 +29,11 @@ class BMRcalc extends React.Component {
     setAge = event => this.setState({ age: event.target.valueAsNumber });
 
     setActivity = event => {
-        if(event.target.textContent === 'Little to no exercise')this.setState({ activity_level: 'Sedentary' });
-        if(event.target.textContent === 'Light exercise/sports 1-3 days/week')this.setState({ activity_level: 'Light' });
-        if(event.target.textContent === 'Moderate exercise/sports 3-5 days/week')this.setState({ activity_level: 'Moderate' });
-        if(event.target.textContent === 'Hard exercise/sports 6-7 days a week')this.setState({ activity_level: 'Very' });
-        if(event.target.textContent === 'Very hard exercise/sports & physical job or 2x training')this.setState({ activity_level: 'Extra' });
+        if (event.target.textContent === 'Little to no exercise') this.setState({ activity_level: 'Sedentary' });
+        if (event.target.textContent === 'Light exercise/sports 1-3 days/week') this.setState({ activity_level: 'Light' });
+        if (event.target.textContent === 'Moderate exercise/sports 3-5 days/week') this.setState({ activity_level: 'Moderate' });
+        if (event.target.textContent === 'Hard exercise/sports 6-7 days a week') this.setState({ activity_level: 'Very' });
+        if (event.target.textContent === 'Very hard exercise/sports & physical job or 2x training') this.setState({ activity_level: 'Extra' });
     }
 
     calculateBMR = event => {
@@ -58,8 +59,9 @@ class BMRcalc extends React.Component {
 
     render() {
         return (
-            <React.Fragment>
+            <Container text>
                 <Userinput
+                    data={this.state}
                     setGender={this.setGender}
                     setWeight={this.setWeight}
                     setWeightUnits={this.setWeightUnits}
@@ -70,8 +72,17 @@ class BMRcalc extends React.Component {
                     clickHandler={this.calculateBMR}
                     heightUnits={this.state.heightUnits}
                     weightUnits={this.state.weightUnits} />
-                <Result BMR={this.state.BMR} calories={this.state.calories} />
-            </React.Fragment>
+                <br></br>
+                <Divider horizontal>
+                    <Header as='h4' inverted>
+                        <Icon name='chart line' />
+                        Results
+                    </Header>
+                </Divider>
+                {!isNaN(this.state.BMR) ?
+                    <Result BMR={this.state.BMR} calories={this.state.calories} />
+                    : ''}
+            </Container>
         )
     }
 }

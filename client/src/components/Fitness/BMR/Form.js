@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Icon, Container } from 'semantic-ui-react';
+import { Form, Icon, Divider, Header } from 'semantic-ui-react';
 
 const options = [
     { key: '1', text: 'Little to no exercise', value: 'Sedentary' },
@@ -14,26 +14,32 @@ const genderOptions = [
     { key: 'f', text: 'Female', value: 'female' }
 ]
 const Userinput = props => (
-    <Container>
-        <Form inverted>
-            <Form.Group widths='equal'>
-                <Form.Input fluid label='Weight' placeholder='Weight' type='number' required onChange={props.setWeight} />
-                <Form.Group inline>
-                    <Form.Radio label='pounds' value='lb' name='weight' onChange={props.setWeightUnits} checked={props.weightUnits === 'lb'} />
-                    <Form.Radio label='kilograms' value='kg' name='weight' onChange={props.setWeightUnits} checked={props.weightUnits === 'kg'} />
-                </Form.Group>
-                <Form.Input fluid label='Height' placeholder='Height' type='number' required onChange={props.setHeight} />
-                <Form.Group inline>
-                    <Form.Radio label='inches' value='in' name='height' onChange={props.setHeightUnits} checked={props.heightUnits === 'in'}/>
-                    <Form.Radio label='centimeters' value='cm' name='height' onChange={props.setHeightUnits} checked={props.heightUnits === 'cm'}/>
-                </Form.Group>
-                <Form.Input label='Age' placeholder='Enter your age' type='number' required onChange={props.setAge} />
-                <Form.Select fluid label='Gender' options={genderOptions} placeholder='Gender' onChange={props.setGender} />
-                <Form.Select label='Activity Level' placeholder='Activity Level' options={options} onChange={props.setActivity} />
+    <Form inverted>
+        <Divider horizontal>
+            <Header as='h4' inverted>
+                <Icon name='write' />
+                Form
+                    </Header>
+        </Divider>
+        <Form.Group widths='equal'>
+            <Form.Input fluid error={props.data.weight < 0} label='Weight' placeholder='Weight' type='number' required onChange={props.setWeight} />
+            <Form.Group inline>
+                <Form.Radio label='pounds' value='lb' name='weight' onChange={props.setWeightUnits} checked={props.weightUnits === 'lb'} />
+                <Form.Radio label='kilograms' value='kg' name='weight' onChange={props.setWeightUnits} checked={props.weightUnits === 'kg'} />
             </Form.Group>
-            <Form.Button color='blue' onClick={props.clickHandler}>Calculate <Icon name='calculator' /></Form.Button>
-        </Form>
-    </Container>
+            <Form.Input fluid error={props.data.height < 0} label='Height' placeholder='Height' type='number' required onChange={props.setHeight} />
+            <Form.Group inline>
+                <Form.Radio label='inches' value='in' name='height' onChange={props.setHeightUnits} checked={props.heightUnits === 'in'} />
+                <Form.Radio label='centimeters' value='cm' name='height' onChange={props.setHeightUnits} checked={props.heightUnits === 'cm'} />
+            </Form.Group>
+        </Form.Group>
+        <Form.Group widths='equal'>
+            <Form.Input fluid error={props.data.age < 0} label='Age' placeholder='Enter your age' type='number' required onChange={props.setAge} />
+            <Form.Select fluid label='Gender' options={genderOptions} placeholder='Gender' onChange={props.setGender} />
+            <Form.Select fluid label='Activity Level' placeholder='Activity Level' options={options} onChange={props.setActivity} />
+        </Form.Group>
+        <Form.Button color='blue' onClick={props.clickHandler}>Calculate<Icon corner='top right' name='calculator' /></Form.Button>
+    </Form>
 )
 
 export default Userinput;
