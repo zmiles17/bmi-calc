@@ -7,11 +7,11 @@ import BMRcalc from './components/Fitness/BMR/Calc';
 // import VO2calc from './components/Fitness/VO2/Calc';
 // import TargetHeartRate from './components/Fitness/THR/Calc';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faDumbbell } from '@fortawesome/free-solid-svg-icons'
+import { faDumbbell, faSmile, faFrown } from '@fortawesome/free-solid-svg-icons'
 // import Welcome from './components/Welcome/Welcome'
 // import Home from './components/Homepage/Home'
 
-library.add(faDumbbell)
+library.add(faDumbbell, faSmile, faFrown)
 
 class App extends Component {
   render() {

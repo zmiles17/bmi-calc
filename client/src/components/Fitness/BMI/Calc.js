@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import BMIgraph from './Graph';
 import { Form, Message, Container, Icon, Divider, Header, Segment } from 'semantic-ui-react';
 
@@ -11,7 +12,8 @@ class BMIcalc extends React.Component {
         heightUnits: 'in',
         bmi: '',
         category: '',
-        data: []
+        data: [],
+        dbMessage: ''
     }
 
     getData() {
@@ -51,61 +53,61 @@ class BMIcalc extends React.Component {
         this.setState({ bmi: Math.round(10 * bmi) / 10, category: category });
         axios.post('/api/fitness', { bmi: Math.round(10 * bmi) / 10, weight: Math.round(weight * 22.05) / 10, height: Math.round(height * 393.7) / 10, category: category })
             .then(data => {
-                console.log(data)
                 this.getData()
+                if (data.data.errors) this.setState({ dbMessage: data.data.errors.bmi.message })
             })
     }
 
     render() {
         return (
-                <Container text>
-                    <Divider horizontal>
-                        <Header as='h4' inverted>
-                            <Icon name='info' />
-                            What is the body mass index?
+            <Container text>
+                <Divider horizontal>
+                    <Header as='h4' inverted>
+                        <Icon name='info' />
+                        What is the body mass index?
                     </Header>
-                    </Divider>
-                    <Segment inverted>
-                        The body mass index or Quetelet index is a method of determining relative obesity, which was devised by Adolphe Quetelet between 1830 and 1850.
-                             It is a value derived from dividing the weight and height of an individual, which is usually expressed by kilograms per meters squared.
-                             This method is most effective for average sedentary (physically inactive) populations.
+                </Divider>
+                <Segment inverted>
+                    The body mass index or Quetelet index is a method of determining relative obesity, which was devised by a Belgian astronomer named Adolphe Quetelet between 1830 and 1850.
+                         It is a value derived from dividing the weight and height of an individual, which is expressed in kilograms per meters squared.
+                         This method is a reliable indicator of obesity for average sedentary (physically inactive) populations.
                 </Segment>
-                    <Divider horizontal>
-                        <Header as='h4' inverted>
-                            <Icon name='write' />
-                            Form
+                <Divider horizontal>
+                    <Header as='h4' inverted>
+                        <Icon name='write' />
+                        Form
                     </Header>
-                    </Divider>
-                    <Form inverted>
-                        <Form.Group widths='equal'>
-                            <Form.Input fluid error={this.state.weight < 0} label='Weight' placeholder='Enter your weight' type='number' onChange={this.setWeight} required />
-                            <Form.Group inline>
-                                <Form.Radio label='pounds' value='lb' name='weight' onChange={this.setWeightUnits} checked={this.state.weightUnits === 'lb'} />
-                                <Form.Radio label='kilograms' value='kg' name='weight' onChange={this.setWeightUnits} checked={this.state.weightUnits === 'kg'} />
-                            </Form.Group>
-                            <Form.Input fluid error={this.state.height < 0} label='Height' placeholder='Enter your height' type='number' required onChange={this.setHeight} />
-                            <Form.Group inline>
-                                <Form.Radio label='inches' value='in' name='height' onChange={this.setHeightUnits} checked={this.state.heightUnits === 'in'} />
-                                <Form.Radio label='centimeters' value='cm' name='height' onChange={this.setHeightUnits} checked={this.state.heightUnits === 'cm'} />
-                            </Form.Group>
+                </Divider>
+                <Form inverted>
+                    <Form.Group widths='equal'>
+                        <Form.Input fluid error={this.state.weight < 0} label='Weight' placeholder='Enter your weight' type='number' onChange={this.setWeight} required />
+                        <Form.Group inline>
+                            <Form.Radio label='pounds' value='lb' name='weight' onChange={this.setWeightUnits} checked={this.state.weightUnits === 'lb'} />
+                            <Form.Radio label='kilograms' value='kg' name='weight' onChange={this.setWeightUnits} checked={this.state.weightUnits === 'kg'} />
                         </Form.Group>
-                        <Form.Button color='blue' onClick={this.clickHandler}>Calculate<Icon corner='top right' name='calculator' /></Form.Button>
-                    </Form>
-                    <br></br>
-                    <Divider horizontal>
-                        <Header as='h4' inverted>
-                            <Icon name='chart line' />
-                            Results
+                        <Form.Input fluid error={this.state.height < 0} label='Height' placeholder='Enter your height' type='number' required onChange={this.setHeight} />
+                        <Form.Group inline>
+                            <Form.Radio label='inches' value='in' name='height' onChange={this.setHeightUnits} checked={this.state.heightUnits === 'in'} />
+                            <Form.Radio label='centimeters' value='cm' name='height' onChange={this.setHeightUnits} checked={this.state.heightUnits === 'cm'} />
+                        </Form.Group>
+                    </Form.Group>
+                    <Form.Button color='blue' onClick={this.clickHandler}>Calculate<Icon corner='top right' name='calculator' /></Form.Button>
+                </Form>
+                <br></br>
+                <Divider horizontal>
+                    <Header as='h4' inverted>
+                        <Icon name='chart line' />
+                        Results
                     </Header>
-                    </Divider>
-                    {this.state.bmi ?
-                        <Message negative={this.state.bmi && (this.state.bmi < 18.5 || this.state.bmi >= 25)} size='large' vertical positive={18.5 <= this.state.bmi && this.state.bmi < 25}>
-                            Your Body Mass Index is: <b>{this.state.bmi}</b>
-                            <br></br>
-                            Your BMI category is: <b>{this.state.category}</b>
-                        </Message> : ''}
+                </Divider>
+                {this.state.bmi ?
+                    <Message negative={this.state.bmi && (this.state.bmi < 18.5 || this.state.bmi >= 25)} size='large' positive={18.5 <= this.state.bmi && this.state.bmi < 25}>
+                        Your body mass index is <b>{this.state.bmi}</b>
+                        <br></br>
+                        Your BMI category is <b>{this.state.category}</b> {this.state.category !== 'normal weight' ? <FontAwesomeIcon icon='frown' /> : <FontAwesomeIcon icon='smile' />}
+                    </Message> : this.state.dbMessage}
                 <BMIgraph data={this.state.data} />
-                </Container>
+            </Container>
         )
     }
 }

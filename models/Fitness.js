@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const FitSchema = new Schema({
     bmi: {
         type: Number,
-        required: [true, 'Need to give valid inputs']
+        required: [true, 'An error occurred! Please give valid entries!']
     },
     weight: { type: Number, required: true, min: 0, max: 500 },
     height: { type: Number, required: true, min: 0, max: 100 },
