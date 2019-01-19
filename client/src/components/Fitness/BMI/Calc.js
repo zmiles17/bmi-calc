@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import BMIgraph from './Graph';
-import { Form, Message, Container, Icon, Divider, Header } from 'semantic-ui-react';
+import { Form, Message, Container, Icon, Divider, Header, Segment } from 'semantic-ui-react';
 
 class BMIcalc extends React.Component {
     state = {
@@ -39,7 +39,7 @@ class BMIcalc extends React.Component {
         let category;
         let weight = parseInt(this.state.weight);
         let height = parseInt(this.state.height);
-        if(weight < 0 || height < 0) return 'error';
+        if (weight < 0 || height < 0) return 'error';
         if (this.state.weightUnits === 'lb') weight /= 2.205;
         if (this.state.heightUnits === 'cm') height /= 100;
         if (this.state.heightUnits === 'in') height *= 0.0254;
@@ -58,44 +58,54 @@ class BMIcalc extends React.Component {
 
     render() {
         return (
-            <Container text>
-            <Divider horizontal>
-                    <Header as='h4' inverted>
-                        <Icon name='write' />
-                        Form
+                <Container text>
+                    <Divider horizontal>
+                        <Header as='h4' inverted>
+                            <Icon name='info' />
+                            What is the body mass index?
                     </Header>
-                </Divider>
-                <Form inverted>
-                    <Form.Group widths='equal'>
-                        <Form.Input fluid error={this.state.weight < 0} label='Weight' placeholder='Enter your weight' type='number' onChange={this.setWeight} required />
-                        <Form.Group inline>
-                            <Form.Radio label='pounds' value='lb' name='weight' onChange={this.setWeightUnits} checked={this.state.weightUnits === 'lb'} />
-                            <Form.Radio label='kilograms' value='kg' name='weight' onChange={this.setWeightUnits} checked={this.state.weightUnits === 'kg'} />
-                        </Form.Group>
-                        <Form.Input fluid error={this.state.height < 0} label='Height' placeholder='Enter your height' type='number' required onChange={this.setHeight} />
-                        <Form.Group inline>
-                            <Form.Radio label='inches' value='in' name='height' onChange={this.setHeightUnits} checked={this.state.heightUnits === 'in'} />
-                            <Form.Radio label='centimeters' value='cm' name='height' onChange={this.setHeightUnits} checked={this.state.heightUnits === 'cm'} />
-                        </Form.Group>
-                    </Form.Group>
-                    <Form.Button color='blue' onClick={this.clickHandler}>Calculate<Icon corner='top right' name='calculator' /></Form.Button>
-                </Form>
-                <br></br>
-                <Divider horizontal>
-                    <Header as='h4' inverted>
-                        <Icon name='chart line' />
-                        Results
+                    </Divider>
+                    <Segment inverted>
+                        The body mass index or Quetelet index is a method of determining relative obesity, which was devised by Adolphe Quetelet between 1830 and 1850.
+                             It is a value derived from dividing the weight and height of an individual, which is usually expressed by kilograms per meters squared.
+                             This method is most effective for average sedentary (physically inactive) populations.
+                </Segment>
+                    <Divider horizontal>
+                        <Header as='h4' inverted>
+                            <Icon name='write' />
+                            Form
                     </Header>
-                </Divider>
-                {this.state.bmi ? 
-                <Message negative={this.state.bmi && (this.state.bmi < 18.5 || this.state.bmi >= 25)} size='large' vertical positive={18.5 <= this.state.bmi && this.state.bmi < 25}>
-                    Your Body Mass Index is: <b>{this.state.bmi}</b>
+                    </Divider>
+                    <Form inverted>
+                        <Form.Group widths='equal'>
+                            <Form.Input fluid error={this.state.weight < 0} label='Weight' placeholder='Enter your weight' type='number' onChange={this.setWeight} required />
+                            <Form.Group inline>
+                                <Form.Radio label='pounds' value='lb' name='weight' onChange={this.setWeightUnits} checked={this.state.weightUnits === 'lb'} />
+                                <Form.Radio label='kilograms' value='kg' name='weight' onChange={this.setWeightUnits} checked={this.state.weightUnits === 'kg'} />
+                            </Form.Group>
+                            <Form.Input fluid error={this.state.height < 0} label='Height' placeholder='Enter your height' type='number' required onChange={this.setHeight} />
+                            <Form.Group inline>
+                                <Form.Radio label='inches' value='in' name='height' onChange={this.setHeightUnits} checked={this.state.heightUnits === 'in'} />
+                                <Form.Radio label='centimeters' value='cm' name='height' onChange={this.setHeightUnits} checked={this.state.heightUnits === 'cm'} />
+                            </Form.Group>
+                        </Form.Group>
+                        <Form.Button color='blue' onClick={this.clickHandler}>Calculate<Icon corner='top right' name='calculator' /></Form.Button>
+                    </Form>
                     <br></br>
-                    Your BMI category is: <b>{this.state.category}</b>
-                </Message> : ''}
+                    <Divider horizontal>
+                        <Header as='h4' inverted>
+                            <Icon name='chart line' />
+                            Results
+                    </Header>
+                    </Divider>
+                    {this.state.bmi ?
+                        <Message negative={this.state.bmi && (this.state.bmi < 18.5 || this.state.bmi >= 25)} size='large' vertical positive={18.5 <= this.state.bmi && this.state.bmi < 25}>
+                            Your Body Mass Index is: <b>{this.state.bmi}</b>
+                            <br></br>
+                            Your BMI category is: <b>{this.state.category}</b>
+                        </Message> : ''}
                 <BMIgraph data={this.state.data} />
-            </Container>
-
+                </Container>
         )
     }
 }
