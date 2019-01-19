@@ -64,7 +64,7 @@ class BMIcalc extends React.Component {
                 <Divider horizontal>
                     <Header as='h4' inverted>
                         <Icon name='info circle' />
-                        What is the body mass index?
+                        What is body mass index?
                     </Header>
                 </Divider>
                 <Segment inverted>
@@ -105,7 +105,7 @@ class BMIcalc extends React.Component {
                         Your body mass index is <b>{this.state.bmi}</b>
                         <br></br>
                         Your BMI category is <b>{this.state.category}</b> {this.state.category !== 'normal weight' ? <FontAwesomeIcon icon='frown' /> : <FontAwesomeIcon icon='smile' />}
-                    </Message> : this.state.dbMessage}
+                    </Message> : this.state.dbMessage ? <Message error>{this.state.dbMessage}</Message> : ''}
                 <BMIgraph data={this.state.data} />
             </Container>
         )

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Divider, Header, Icon } from 'semantic-ui-react';
+import { Container, Divider, Header, Icon, Segment } from 'semantic-ui-react';
 import Userinput from './Form';
 import Result from './Result';
 
@@ -60,6 +60,15 @@ class BMRcalc extends React.Component {
     render() {
         return (
             <Container text>
+            <Divider horizontal>
+                    <Header as='h4' inverted>
+                        <Icon name='info circle' />
+                        What is basal metabolic rate?
+                    </Header>
+                </Divider>
+                <Segment inverted>
+                    
+                </Segment>
                 <Userinput
                     data={this.state}
                     setGender={this.setGender}
