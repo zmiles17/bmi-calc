@@ -63,7 +63,7 @@ class BMIcalc extends React.Component {
             <Container text>
                 <Divider horizontal>
                     <Header as='h4' inverted>
-                        <Icon name='info' />
+                        <Icon name='info circle' />
                         What is the body mass index?
                     </Header>
                 </Divider>

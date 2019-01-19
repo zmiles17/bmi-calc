@@ -101,7 +101,7 @@ class DesktopContainer extends Component {
               size='large'
             >
               <Container>
-                <Menu.Item as={Link} to={`/home`} name='home' onClick={this.handleItemClick} active={activeItem === 'home'}>Home</Menu.Item>
+                <Menu.Item as={Link} to={`/`} name='home' onClick={this.handleItemClick} active={activeItem === 'home'}>Home</Menu.Item>
                 <Menu.Item as={Link} to={`/bmi`} name='bmi' onClick={this.handleItemClick} active={activeItem === 'bmi'}>Body Mass Index</Menu.Item>
                 <Menu.Item as={Link} to={`/bmr`} name='bmr' onClick={this.handleItemClick} active={activeItem === 'bmr'}>Basal Metabolic Rate</Menu.Item>
                 {/* <Menu.Item position='right'>
@@ -149,6 +149,7 @@ class MobileContainer extends Component {
         as={Sidebar.Pushable}
         getWidth={getWidth}
         maxWidth={Responsive.onlyMobile.maxWidth}
+        style={{cursor: 'pointer'}}
       >
         <Sidebar
           as={Menu}
@@ -158,7 +159,7 @@ class MobileContainer extends Component {
           vertical
           visible={sidebarOpened}
         >
-          <Menu.Item as={Link} to={`/home`} name='home' onClick={this.handleItemClick} active={activeItem === 'home'}>Home</Menu.Item>
+          <Menu.Item as={Link} to={`/`} name='home' onClick={this.handleItemClick} active={activeItem === 'home'}>Home</Menu.Item>
           <Menu.Item as={Link} to={`/bmi`} name='bmi' onClick={this.handleItemClick} active={activeItem === 'bmi'}>Body Mass Index</Menu.Item>
           <Menu.Item as={Link} to={`/bmr`} name='bmr' onClick={this.handleItemClick} active={activeItem === 'bmr'}>Basal Metabolic Rate</Menu.Item>
           {/* <Menu.Item>
