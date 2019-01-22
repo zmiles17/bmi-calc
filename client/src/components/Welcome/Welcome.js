@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import GoogleLogin from 'react-google-login';
-import { PostData } from '../../services/PostData';
 import { Redirect } from 'react-router-dom';
+import { HomepageHeading } from '../Homepage/Header'
 
 class Welcome extends Component {
     constructor(props) {
@@ -13,27 +12,6 @@ class Welcome extends Component {
         this.signup = this.signup.bind(this);
     }
 
-    signup(res, type) {
-        let postData;
-        if (type === 'google' && res.w3.U3) {
-            postData = {
-                name: res.w3.ig,
-                provider: type,
-                email: res.w3.U3,
-                provider_id: res.El,
-                token: res.Zi.access_token,
-                provider_pic: res.w3.Paa
-            };
-        }
-
-        if (postData) {
-            PostData(postData).then((result) => {
-                let responseJson = result;
-                sessionStorage.setItem("userData", JSON.stringify(responseJson));
-                this.setState({ redirect: true });
-            });
-        } else { }
-    }
 
     render() {
 
@@ -41,27 +19,12 @@ class Welcome extends Component {
             return (<Redirect to={'/home'} />)
         }
 
-        const responseGoogle = (response) => {
-            console.log("google console");
-            console.log(response);
-            this.signup(response, 'google');
-        }
+        
 
         return (
-
-            <div className="row body">
-                <div className="medium-12 columns">
-                    <div className="medium-12 columns">
-                        <h2 id="welcomeText">Welcome to myFitCalc!</h2>
-                        <GoogleLogin
-                            clientId="212183881598-crat4ugt0pram2fiaanannq4p6vmj8mn.apps.googleusercontent.com"
-                            buttonText="Get Started"
-                            onSuccess={responseGoogle}
-                            onFailure={responseGoogle} />
-
-                    </div>
-                </div>
-            </div>
+            <React.Fragment>
+                <HomepageHeading />
+            </React.Fragment>
         );
     }
 }

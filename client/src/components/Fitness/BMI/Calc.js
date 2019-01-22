@@ -17,9 +17,7 @@ class BMIcalc extends React.Component {
     }
 
     getData() {
-        // let data;
         axios.get('/api/fitness').then(res => {
-            // data = res.data.sort((a, b) => a.weight - b.weight);
             this.setState({ data: res.data })
         })
     }

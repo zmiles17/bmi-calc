@@ -1,6 +1,5 @@
 import React from 'react';
 import Redirect from 'react-dom'
-import { HomepageHeading } from '../Homepage/Header'
 
 class Home extends React.Component {
         state = {
@@ -22,7 +21,6 @@ class Home extends React.Component {
 
         return (
             <div >
-                <HomepageHeading />
                 Welcome {this.state.name}
             </div>
         );

@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-// import { GoogleLogout } from 'react-google-login';
+import { GoogleLogin } from 'react-google-login';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import axios from 'axios';
 import {
-  // Button,
+  Button,
   Container,
   Header,
   Icon,
@@ -64,22 +65,58 @@ HomepageHeading.propTypes = {
  * It can be more complicated, but you can create really flexible markup.
  */
 class DesktopContainer extends Component {
-  state = {}
+  state = {
+    loginError: false,
+    redirect: false
+  }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
   hideFixedMenu = () => this.setState({ fixed: false })
+
   showFixedMenu = () => this.setState({ fixed: true })
+
+  responseGoogle = (response) => {
+    console.log("google console");
+    console.log(response);
+    this.signup(response);
+  }
+
+  logout = (response) => {
+    console.log(response);
+    sessionStorage.clear();
+    this.setState({ isLoggedIn: false })
+  }
+
+  signup = (res) => {
+    let postData;
+    if (res.w3.U3) {
+      postData = {
+        name: res.w3.ig,
+        email: res.w3.U3,
+        provider_id: res.El,
+        token: res.Zi.access_token,
+        provider_pic: res.w3.Paa
+      };
+      console.log(postData)
+    }
+
+    if (postData) {
+      axios.post('/api/users', postData).then((result) => {
+        console.log(result);
+        sessionStorage.setItem("userData", result.data._id);
+        this.setState({ isLoggedIn: true });
+      });
+    } else { }
+  }
 
   render() {
     const { children } = this.props
     const { fixed } = this.state
     const { activeItem } = this.state
-    // const logout = (response) => {
-    //   console.log(response);
-    //   sessionStorage.clear();
-    //   this.setState({ isLoggedIn: false })
+    //   if (this.state.redirect || sessionStorage.getItem('userData')) {
+    //     return (<Redirect to={'/home'} />)
     // }
-
     return (
       <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth}>
         <Visibility
@@ -101,15 +138,26 @@ class DesktopContainer extends Component {
               size='large'
             >
               <Container>
-                <Menu.Item as={Link} to={`/`} name='home' onClick={this.handleItemClick} active={activeItem === 'home'}>Home</Menu.Item>
+                <Menu.Item as={Link} to={`/home`} name='home' onClick={this.handleItemClick} active={activeItem === 'home'}>Home</Menu.Item>
                 <Menu.Item as={Link} to={`/bmi`} name='bmi' onClick={this.handleItemClick} active={activeItem === 'bmi'}>Body Mass Index</Menu.Item>
                 <Menu.Item as={Link} to={`/bmr`} name='bmr' onClick={this.handleItemClick} active={activeItem === 'bmr'}>Basal Metabolic Rate</Menu.Item>
-                {/* <Menu.Item position='right'>
-                  <Button as={GoogleLogout}
-                    onLogoutSuccess={() => logout()}>
-                    Logout
+                {this.state.isLoggedIn ?
+                  <Menu.Item  position='right'>
+                    <Button
+                      inverted={!fixed}
+                      onClick={this.logout}>
+                      <Icon name='google'/>
+                      Logout
                   </Button>
-                </Menu.Item> */}
+                  </Menu.Item>
+                  : <Menu.Item position='right'><GoogleLogin
+                    clientId="212183881598-crat4ugt0pram2fiaanannq4p6vmj8mn.apps.googleusercontent.com"
+                    render={renderProps => (
+                      <Button onClick={renderProps.onClick} inverted={!fixed}><Icon name='google'/>Login with Google</Button>
+                    )}
+                    buttonText="Login"
+                    onSuccess={this.responseGoogle}
+                    onFailure={this.responseGoogle} /></Menu.Item>}
               </Container>
             </Menu>
             {children}
@@ -127,29 +175,65 @@ DesktopContainer.propTypes = {
 }
 
 class MobileContainer extends Component {
-  state = {}
+  state = {
+    loginError: false,
+    redirect: false
+  }
 
   handleSidebarHide = () => this.setState({ sidebarOpened: false })
+
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
   handleToggle = () => this.setState({ sidebarOpened: true })
+
+  responseGoogle = (response) => {
+    console.log("google console");
+    console.log(response);
+    this.signup(response);
+  }
+
+  logout = (response) => {
+    console.log(response);
+    sessionStorage.clear();
+    this.setState({ isLoggedIn: false })
+  }
+
+  signup = (res) => {
+    let postData;
+    if (res.w3.U3) {
+      postData = {
+        name: res.w3.ig,
+        email: res.w3.U3,
+        provider_id: res.El,
+        token: res.Zi.access_token,
+        provider_pic: res.w3.Paa
+      };
+      console.log(postData)
+    }
+
+    if (postData) {
+      axios.post('/api/users', postData).then((result) => {
+        console.log(result);
+        sessionStorage.setItem("userData", result.data._id);
+        this.setState({ isLoggedIn: true });
+      });
+    } else { }
+  }
 
 
   render() {
     const { children } = this.props
     const { sidebarOpened } = this.state
     const { activeItem } = this.state
-    // const logout = (response) => {
-    //   console.log(response);
-    //   sessionStorage.clear();
-    //   this.setState({ isLoggedIn: false })
+    //   if (this.state.redirect || sessionStorage.getItem('userData')) {
+    //     return (<Redirect to={'/home'} />)
     // }
-
     return (
       <Responsive
         as={Sidebar.Pushable}
         getWidth={getWidth}
         maxWidth={Responsive.onlyMobile.maxWidth}
-        style={{cursor: 'pointer'}}
+        style={{ cursor: 'pointer' }}
       >
         <Sidebar
           as={Menu}
@@ -159,16 +243,27 @@ class MobileContainer extends Component {
           vertical
           visible={sidebarOpened}
         >
-          <Menu.Item as={Link} to={`/`} name='home' onClick={this.handleItemClick} active={activeItem === 'home'}>Home</Menu.Item>
+          <Menu.Item as={Link} to={`/home`} name='home' onClick={this.handleItemClick} active={activeItem === 'home'}>Home</Menu.Item>
           <Menu.Item as={Link} to={`/bmi`} name='bmi' onClick={this.handleItemClick} active={activeItem === 'bmi'}>Body Mass Index</Menu.Item>
           <Menu.Item as={Link} to={`/bmr`} name='bmr' onClick={this.handleItemClick} active={activeItem === 'bmr'}>Basal Metabolic Rate</Menu.Item>
-          {/* <Menu.Item>
-            <GoogleLogout
-              buttonText='Logout'
-              onLogoutSuccess={() => logout()}>
-              Logout
-                  </GoogleLogout>
-          </Menu.Item> */}
+          {this.state.isLoggedIn ?
+            <Menu.Item position='right'>
+              <Button
+                inverted
+                onClick={this.logout}>
+                <Icon name='google'/>
+                Logout
+                  </Button>
+            </Menu.Item>
+            : <Menu.Item position='right'><GoogleLogin
+              clientId="212183881598-crat4ugt0pram2fiaanannq4p6vmj8mn.apps.googleusercontent.com"
+              render={renderProps => (
+                <Button onClick={renderProps.onClick} inverted><Icon name='google'/>Login with Google</Button>
+              )}
+              buttonText="Login"
+              onSuccess={this.responseGoogle}
+              onFailure={this.responseGoogle} />
+            </Menu.Item>}
         </Sidebar>
 
         <Sidebar.Pusher dimmed={sidebarOpened}>
