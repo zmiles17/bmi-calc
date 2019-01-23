@@ -146,22 +146,22 @@ class DesktopContainer extends Component {
                 <Menu.Item as={Link} to={`/bmi`} name='bmi' onClick={this.handleItemClick} active={activeItem === 'bmi'}>Body Mass Index</Menu.Item>
                 <Menu.Item as={Link} to={`/bmr`} name='bmr' onClick={this.handleItemClick} active={activeItem === 'bmr'}>Basal Metabolic Rate</Menu.Item>
                 {this.state.isLoggedIn ?
-                  <Menu.Item  position='right'>
+                  <Menu.Item position='right'>
                     <Button
                       inverted={!fixed}
                       onClick={this.logout}>
-                      <Icon name='google'/>
+                      <Icon name='google' />
                       Logout
                   </Button>
                   </Menu.Item>
                   : <Menu.Item position='right'>
-                  <GoogleLogin
-                    clientId="212183881598-crat4ugt0pram2fiaanannq4p6vmj8mn.apps.googleusercontent.com"
-                    render={renderProps => (
-                      <Button onClick={renderProps.onClick} inverted={!fixed}><Icon name='google'/>Login with Google</Button>
-                    )}
-                    onSuccess={this.responseGoogle}
-                    onFailure={this.responseGoogle} /></Menu.Item>}
+                    <GoogleLogin
+                      clientId="212183881598-crat4ugt0pram2fiaanannq4p6vmj8mn.apps.googleusercontent.com"
+                      render={renderProps => (
+                        <Button onClick={renderProps.onClick} inverted={!fixed}><Icon name='google' />Login with Google</Button>
+                      )}
+                      onSuccess={this.responseGoogle}
+                      onFailure={this.responseGoogle} /></Menu.Item>}
               </Container>
             </Menu>
             {children}
@@ -183,8 +183,8 @@ class MobileContainer extends Component {
     loginError: false,
     redirect: false,
     isLoggedIn: sessionStorage.getItem('userData') !== null ? true : false
-   }
-  
+  }
+
   handleSidebarHide = () => this.setState({ sidebarOpened: false })
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
@@ -254,22 +254,20 @@ class MobileContainer extends Component {
           <Menu.Item as={Link} to={`/bmi`} name='bmi' onClick={this.handleItemClick} active={activeItem === 'bmi'}>Body Mass Index</Menu.Item>
           <Menu.Item as={Link} to={`/bmr`} name='bmr' onClick={this.handleItemClick} active={activeItem === 'bmr'}>Basal Metabolic Rate</Menu.Item>
           {this.state.isLoggedIn ?
-            <Menu.Item position='right'>
-              <Button
-                inverted
-                onClick={this.logout}>
-                <Icon name='google'/>
-                Logout
+            <Button fluid
+              inverted
+              onClick={this.logout}>
+              <Icon name='google' />
+              Logout
                   </Button>
-            </Menu.Item>
-            : <Menu.Item position='right'><GoogleLogin
+            : <GoogleLogin
               clientId="212183881598-crat4ugt0pram2fiaanannq4p6vmj8mn.apps.googleusercontent.com"
               render={renderProps => (
-                <Button onClick={renderProps.onClick} inverted><Icon name='google'/>Login with Google</Button>
+                <Button fluid onClick={renderProps.onClick} inverted><Icon name='google' />Login with Google</Button>
               )}
               onSuccess={this.responseGoogle}
               onFailure={this.responseGoogle} />
-            </Menu.Item>}
+          }
         </Sidebar>
 
         <Sidebar.Pusher dimmed={sidebarOpened}>
