@@ -67,7 +67,8 @@ HomepageHeading.propTypes = {
 class DesktopContainer extends Component {
   state = {
     loginError: false,
-    redirect: false
+    redirect: false,
+    isLoggedIn: sessionStorage.getItem('userData') !== null ? true : false
   }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
@@ -86,6 +87,8 @@ class DesktopContainer extends Component {
     console.log(response);
     sessionStorage.clear();
     this.setState({ isLoggedIn: false })
+    window.location.replace('/');
+
   }
 
   signup = (res) => {
@@ -106,6 +109,7 @@ class DesktopContainer extends Component {
         console.log(result);
         sessionStorage.setItem("userData", result.data._id);
         this.setState({ isLoggedIn: true });
+        window.location.reload();
       });
     } else { }
   }
@@ -150,12 +154,12 @@ class DesktopContainer extends Component {
                       Logout
                   </Button>
                   </Menu.Item>
-                  : <Menu.Item position='right'><GoogleLogin
+                  : <Menu.Item position='right'>
+                  <GoogleLogin
                     clientId="212183881598-crat4ugt0pram2fiaanannq4p6vmj8mn.apps.googleusercontent.com"
                     render={renderProps => (
                       <Button onClick={renderProps.onClick} inverted={!fixed}><Icon name='google'/>Login with Google</Button>
                     )}
-                    buttonText="Login"
                     onSuccess={this.responseGoogle}
                     onFailure={this.responseGoogle} /></Menu.Item>}
               </Container>
@@ -177,9 +181,10 @@ DesktopContainer.propTypes = {
 class MobileContainer extends Component {
   state = {
     loginError: false,
-    redirect: false
-  }
-
+    redirect: false,
+    isLoggedIn: sessionStorage.getItem('userData') !== null ? true : false
+   }
+  
   handleSidebarHide = () => this.setState({ sidebarOpened: false })
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
@@ -196,6 +201,7 @@ class MobileContainer extends Component {
     console.log(response);
     sessionStorage.clear();
     this.setState({ isLoggedIn: false })
+    window.location.replace('/');
   }
 
   signup = (res) => {
@@ -216,6 +222,7 @@ class MobileContainer extends Component {
         console.log(result);
         sessionStorage.setItem("userData", result.data._id);
         this.setState({ isLoggedIn: true });
+        window.location.reload();
       });
     } else { }
   }
@@ -260,7 +267,6 @@ class MobileContainer extends Component {
               render={renderProps => (
                 <Button onClick={renderProps.onClick} inverted><Icon name='google'/>Login with Google</Button>
               )}
-              buttonText="Login"
               onSuccess={this.responseGoogle}
               onFailure={this.responseGoogle} />
             </Menu.Item>}
