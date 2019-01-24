@@ -9,6 +9,7 @@ import {
   Container,
   Header,
   Icon,
+  Image,
   Menu,
   Responsive,
   Segment,
@@ -68,7 +69,18 @@ class DesktopContainer extends Component {
   state = {
     loginError: false,
     redirect: false,
-    isLoggedIn: sessionStorage.getItem('userData') !== null ? true : false
+    isLoggedIn: sessionStorage.getItem('userData') !== null ? true : false,
+    profile_pic: ''
+  }
+
+  componentDidMount() {
+    if(sessionStorage.getItem('userData')){
+    const _id = sessionStorage.getItem('userData')
+    axios.get(`/api/users/${_id}`)
+      .then(result => {
+        this.setState({ profile_pic: result.data.provider_pic })
+      })
+    }
   }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
@@ -78,17 +90,13 @@ class DesktopContainer extends Component {
   showFixedMenu = () => this.setState({ fixed: true })
 
   responseGoogle = (response) => {
-    console.log("google console");
-    console.log(response);
     this.signup(response);
   }
 
   logout = (response) => {
-    console.log(response);
     sessionStorage.clear();
     this.setState({ isLoggedIn: false })
     window.location.replace('/');
-
   }
 
   signup = (res) => {
@@ -101,13 +109,12 @@ class DesktopContainer extends Component {
         token: res.Zi.access_token,
         provider_pic: res.w3.Paa
       };
-      console.log(postData)
     }
 
     if (postData) {
       axios.post('/api/users', postData).then((result) => {
         console.log(result);
-        sessionStorage.setItem("userData", result.data._id);
+        sessionStorage.setItem("userData", result.data.doc._id);
         this.setState({ isLoggedIn: true });
         window.location.reload();
       });
@@ -162,6 +169,7 @@ class DesktopContainer extends Component {
                       )}
                       onSuccess={this.responseGoogle}
                       onFailure={this.responseGoogle} /></Menu.Item>}
+                {this.state.profile_pic !== '' ? <Image avatar src={this.state.profile_pic} circular /> : null}
               </Container>
             </Menu>
             {children}
@@ -182,7 +190,18 @@ class MobileContainer extends Component {
   state = {
     loginError: false,
     redirect: false,
-    isLoggedIn: sessionStorage.getItem('userData') !== null ? true : false
+    isLoggedIn: sessionStorage.getItem('userData') !== null ? true : false,
+    profile_pic: ''
+  }
+
+  componentDidMount() {
+    if(sessionStorage.getItem('userData')){
+    const _id = sessionStorage.getItem('userData')
+    axios.get(`/api/users/${_id}`)
+      .then(result => {
+        this.setState({ profile_pic: result.data.provider_pic })
+      })
+    }
   }
 
   handleSidebarHide = () => this.setState({ sidebarOpened: false })
@@ -192,13 +211,10 @@ class MobileContainer extends Component {
   handleToggle = () => this.setState({ sidebarOpened: true })
 
   responseGoogle = (response) => {
-    console.log("google console");
-    console.log(response);
     this.signup(response);
   }
 
   logout = (response) => {
-    console.log(response);
     sessionStorage.clear();
     this.setState({ isLoggedIn: false })
     window.location.replace('/');
@@ -214,13 +230,11 @@ class MobileContainer extends Component {
         token: res.Zi.access_token,
         provider_pic: res.w3.Paa
       };
-      console.log(postData)
     }
 
     if (postData) {
       axios.post('/api/users', postData).then((result) => {
-        console.log(result);
-        sessionStorage.setItem("userData", result.data._id);
+        sessionStorage.setItem("userData", result.data.doc._id);
         this.setState({ isLoggedIn: true });
         window.location.reload();
       });
@@ -282,6 +296,7 @@ class MobileContainer extends Component {
                 <Menu.Item onClick={this.handleToggle}>
                   <Icon name='sidebar' />
                 </Menu.Item>
+          {this.state.profile_pic !== '' ? <Menu.Item position='right'><Image avatar src={this.state.profile_pic} circular /></Menu.Item> : null}
               </Menu>
             </Container>
             {children}

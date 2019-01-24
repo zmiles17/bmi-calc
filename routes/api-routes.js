@@ -1,5 +1,7 @@
 const fitness = require('../models/Fitness');
 const users = require('../models/User');
+const moment = require('moment')
+
 
 module.exports = function (app) {
 
@@ -13,8 +15,18 @@ module.exports = function (app) {
             });
     });
 
-    app.post('/api/fitness', function (req, res) {
+    app.put('/api/fitness', function (req, res) {
+        const d = Date.now()
         fitness.create(req.body)
+        users.findByIdAndUpdate(req.body._user,
+            {
+                $push: {
+                    fitness: {
+                        weight: req.body.weight,
+                        date: moment(d).format('LL')
+                    }
+                }
+            })
             .then(function (data) {
                 res.json(data);
             })
@@ -24,7 +36,17 @@ module.exports = function (app) {
     });
 
     app.post('/api/users', function (req, res) {
-        users.create(req.body)
+        users.findOrCreate(req.body)
+        .then(function(data){
+            res.json(data);
+        })
+        .catch(function(err){
+            res.json(err);
+        })
+    });
+
+    app.get('/api/users/:id', function (req, res) {
+        users.findById(req.params.id)
             .then(function (data) {
                 res.json(data);
             })

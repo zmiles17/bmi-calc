@@ -9,8 +9,8 @@ const FitSchema = new Schema({
     },
     weight: { type: Number, required: true, min: 0, max: 500 },
     height: { type: Number, required: true, min: 0, max: 100 },
-    category: {type: 'String', required: true},
-    _user: {type: Schema.Types.ObjectId, ref: 'User'}
+    category: { type: 'String', required: true },
+    _user: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 
 const Fitness = mongoose.model('Fitness', FitSchema);
