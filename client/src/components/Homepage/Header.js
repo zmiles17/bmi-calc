@@ -7,6 +7,7 @@ import axios from 'axios';
 import {
   Button,
   Container,
+  Dropdown,
   Header,
   Icon,
   Image,
@@ -70,16 +71,17 @@ class DesktopContainer extends Component {
     loginError: false,
     redirect: false,
     isLoggedIn: sessionStorage.getItem('userData') !== null ? true : false,
-    profile_pic: ''
+    profile_pic: '',
+    username: ''
   }
 
   componentDidMount() {
-    if(sessionStorage.getItem('userData')){
-    const _id = sessionStorage.getItem('userData')
-    axios.get(`/api/users/${_id}`)
-      .then(result => {
-        this.setState({ profile_pic: result.data.provider_pic })
-      })
+    if (sessionStorage.getItem('userData')) {
+      const _id = sessionStorage.getItem('userData')
+      axios.get(`/api/users/${_id}`)
+        .then(result => {
+          this.setState({ profile_pic: result.data.provider_pic, username: result.data.name })
+        })
     }
   }
 
@@ -113,8 +115,8 @@ class DesktopContainer extends Component {
 
     if (postData) {
       axios.post('/api/users', postData).then((result) => {
-        console.log(result);
-        sessionStorage.setItem("userData", result.data.doc._id);
+        console.log(result)
+        sessionStorage.setItem("userData", result.data._id);
         this.setState({ isLoggedIn: true });
         window.location.reload();
       });
@@ -125,9 +127,7 @@ class DesktopContainer extends Component {
     const { children } = this.props
     const { fixed } = this.state
     const { activeItem } = this.state
-    //   if (this.state.redirect || sessionStorage.getItem('userData')) {
-    //     return (<Redirect to={'/home'} />)
-    // }
+
     return (
       <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth}>
         <Visibility
@@ -153,14 +153,7 @@ class DesktopContainer extends Component {
                 <Menu.Item as={Link} to={`/bmi`} name='bmi' onClick={this.handleItemClick} active={activeItem === 'bmi'}>Body Mass Index</Menu.Item>
                 <Menu.Item as={Link} to={`/bmr`} name='bmr' onClick={this.handleItemClick} active={activeItem === 'bmr'}>Basal Metabolic Rate</Menu.Item>
                 {this.state.isLoggedIn ?
-                  <Menu.Item position='right'>
-                    <Button
-                      inverted={!fixed}
-                      onClick={this.logout}>
-                      <Icon name='google' />
-                      Logout
-                  </Button>
-                  </Menu.Item>
+                  null
                   : <Menu.Item position='right'>
                     <GoogleLogin
                       clientId="212183881598-crat4ugt0pram2fiaanannq4p6vmj8mn.apps.googleusercontent.com"
@@ -169,7 +162,18 @@ class DesktopContainer extends Component {
                       )}
                       onSuccess={this.responseGoogle}
                       onFailure={this.responseGoogle} /></Menu.Item>}
-                {this.state.profile_pic !== '' ? <Image avatar src={this.state.profile_pic} circular /> : null}
+                {this.state.profile_pic !== '' ?
+                  <Menu.Item position='right'>
+                    <Dropdown
+                      trigger={<Image avatar src={this.state.profile_pic} circular />}
+                      options={[{ key: 'account', text: 'Account', icon: 'user' },
+                      { key: 'settings', text: 'Settings', icon: 'settings' },
+                      {
+                        key: 'logout', text: 'Logout', icon: 'google', onClick: this.logout,
+                      }]}
+                      pointing='top left' icon={null}>
+                    </Dropdown>
+                  </Menu.Item> : null}
               </Container>
             </Menu>
             {children}
@@ -191,16 +195,17 @@ class MobileContainer extends Component {
     loginError: false,
     redirect: false,
     isLoggedIn: sessionStorage.getItem('userData') !== null ? true : false,
-    profile_pic: ''
+    profile_pic: '',
+    username: ''
   }
 
   componentDidMount() {
-    if(sessionStorage.getItem('userData')){
-    const _id = sessionStorage.getItem('userData')
-    axios.get(`/api/users/${_id}`)
-      .then(result => {
-        this.setState({ profile_pic: result.data.provider_pic })
-      })
+    if (sessionStorage.getItem('userData')) {
+      const _id = sessionStorage.getItem('userData')
+      axios.get(`/api/users/${_id}`)
+        .then(result => {
+          this.setState({ profile_pic: result.data.provider_pic, username: result.data.name })
+        })
     }
   }
 
@@ -234,7 +239,7 @@ class MobileContainer extends Component {
 
     if (postData) {
       axios.post('/api/users', postData).then((result) => {
-        sessionStorage.setItem("userData", result.data.doc._id);
+        sessionStorage.setItem("userData", result.data._id);
         this.setState({ isLoggedIn: true });
         window.location.reload();
       });
@@ -246,9 +251,7 @@ class MobileContainer extends Component {
     const { children } = this.props
     const { sidebarOpened } = this.state
     const { activeItem } = this.state
-    //   if (this.state.redirect || sessionStorage.getItem('userData')) {
-    //     return (<Redirect to={'/home'} />)
-    // }
+
     return (
       <Responsive
         as={Sidebar.Pushable}
@@ -267,21 +270,6 @@ class MobileContainer extends Component {
           <Menu.Item as={Link} to={`/home`} name='home' onClick={this.handleItemClick} active={activeItem === 'home'}>Home</Menu.Item>
           <Menu.Item as={Link} to={`/bmi`} name='bmi' onClick={this.handleItemClick} active={activeItem === 'bmi'}>Body Mass Index</Menu.Item>
           <Menu.Item as={Link} to={`/bmr`} name='bmr' onClick={this.handleItemClick} active={activeItem === 'bmr'}>Basal Metabolic Rate</Menu.Item>
-          {this.state.isLoggedIn ?
-            <Button fluid
-              inverted
-              onClick={this.logout}>
-              <Icon name='google' />
-              Logout
-                  </Button>
-            : <GoogleLogin
-              clientId="212183881598-crat4ugt0pram2fiaanannq4p6vmj8mn.apps.googleusercontent.com"
-              render={renderProps => (
-                <Button fluid onClick={renderProps.onClick} inverted><Icon name='google' />Login with Google</Button>
-              )}
-              onSuccess={this.responseGoogle}
-              onFailure={this.responseGoogle} />
-          }
         </Sidebar>
 
         <Sidebar.Pusher dimmed={sidebarOpened}>
@@ -296,7 +284,28 @@ class MobileContainer extends Component {
                 <Menu.Item onClick={this.handleToggle}>
                   <Icon name='sidebar' />
                 </Menu.Item>
-          {this.state.profile_pic !== '' ? <Menu.Item position='right'><Image avatar src={this.state.profile_pic} circular /></Menu.Item> : null}
+                {this.state.isLoggedIn ? null
+                  : <Menu.Item position='right'><GoogleLogin
+                    clientId="212183881598-crat4ugt0pram2fiaanannq4p6vmj8mn.apps.googleusercontent.com"
+                    render={renderProps => (
+                      <Button onClick={renderProps.onClick} inverted><Icon name='google' />Login with Google</Button>
+                    )}
+                    onSuccess={this.responseGoogle}
+                    onFailure={this.responseGoogle} />
+                    </Menu.Item>
+                }
+                {this.state.profile_pic !== '' ?
+                  <Menu.Item position='right'>
+                    <Dropdown
+                      trigger={<Image avatar src={this.state.profile_pic} circular />}
+                      options={[{ key: 'account', text: 'Account', icon: 'user' },
+                      { key: 'settings', text: 'Settings', icon: 'settings' },
+                      {
+                        key: 'logout', text: 'Logout', icon: 'google', onClick: this.logout,
+                      }]}
+                      pointing='top right' icon={null}>
+                    </Dropdown>
+                  </Menu.Item> : null}
               </Menu>
             </Container>
             {children}

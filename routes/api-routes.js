@@ -36,12 +36,14 @@ module.exports = function (app) {
     });
 
     app.post('/api/users', function (req, res) {
-        users.findOrCreate(req.body)
-        .then(function(data){
-            res.json(data);
-        })
-        .catch(function(err){
-            res.json(err);
+        users.findOrCreate(req.body, function (err, user) {
+            if (err) {
+                users.find({ email: req.body.email })
+                    .then(function (data) {
+                        res.json(data.pop());
+                    })
+            }
+            else res.json(user);
         })
     });
 

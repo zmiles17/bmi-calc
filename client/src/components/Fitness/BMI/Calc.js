@@ -3,6 +3,7 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import BMIgraph from './Graph';
 import { Form, Message, Container, Icon, Divider, Header, Segment } from 'semantic-ui-react';
+import BmiChart from './PieChart';
 
 class BMIcalc extends React.Component {
     state = {
@@ -58,8 +59,9 @@ class BMIcalc extends React.Component {
             _user: this.state._user
         })
             .then(data => {
+                console.log(data);
                 this.getData()
-                if (data.data.errors) this.setState({ dbMessage: data.data.errors.bmi.message })
+                if (data.data === null) this.setState({ dbMessage: 'Please give valid inputs.' })
             })
     }
 
@@ -74,7 +76,7 @@ class BMIcalc extends React.Component {
                 </Divider>
                 <Segment inverted>
                     The body mass index or Quetelet index is a method of determining relative obesity, which was devised by a Belgian astronomer named Adolphe Quetelet between 1830 and 1850.
-                         It is a value derived from dividing the weight and height of an individual, which is expressed in kilograms per meters squared.
+                         It is a value derived from dividing the weight and height of an individual expressed in kilograms per meters squared.
                          This method is a reliable indicator of obesity for average sedentary (physically inactive) populations.
                 </Segment>
                 <Divider horizontal>
@@ -112,6 +114,7 @@ class BMIcalc extends React.Component {
                         Your BMI category is <b>{this.state.category}</b> {this.state.category !== 'normal weight' ? <FontAwesomeIcon icon='frown' /> : <FontAwesomeIcon icon='smile' />}
                     </Message> : this.state.dbMessage ? <Message error>{this.state.dbMessage}</Message> : ''}
                 <BMIgraph data={this.state.data} />
+                <BmiChart data={this.state.data} />
             </Container>
         )
     }

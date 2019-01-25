@@ -4,14 +4,14 @@ const findOrCreate = require('mongoose-findorcreate')
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-    email: { type: String,  },
+    email: { type: String, },
     name: { type: String },
-    provider_id: { type: String,  },
-    provider_pic: { type: String,  },
-    token: { type: String,  },
+    provider_id: { type: String, },
+    provider_pic: { type: String, },
+    token: { type: String, },
     fitness: [{
-        weight: {type: Number},
-        date: {type: String}
+        weight: { type: Number },
+        date: { type: String }
     }]
 });
 
