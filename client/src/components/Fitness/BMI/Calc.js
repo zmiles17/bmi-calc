@@ -59,7 +59,6 @@ class BMIcalc extends React.Component {
             _user: this.state._user
         })
             .then(data => {
-                console.log(data);
                 this.getData()
                 if (data.data.errors) this.setState({ dbMessage: data.data.message })
             })
