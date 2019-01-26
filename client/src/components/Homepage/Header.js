@@ -115,7 +115,6 @@ class DesktopContainer extends Component {
 
     if (postData) {
       axios.post('/api/users', postData).then((result) => {
-        console.log(result)
         sessionStorage.setItem("userData", result.data._id);
         this.setState({ isLoggedIn: true });
         window.location.reload();
@@ -149,7 +148,7 @@ class DesktopContainer extends Component {
               size='large'
             >
               <Container>
-                <Menu.Item as={Link} to={`/home`} name='home' onClick={this.handleItemClick} active={activeItem === 'home'}>Home</Menu.Item>
+                <Menu.Item as={Link} to={`/`} name='home' onClick={this.handleItemClick} active={activeItem === 'home'}>Home</Menu.Item>
                 <Menu.Item as={Link} to={`/bmi`} name='bmi' onClick={this.handleItemClick} active={activeItem === 'bmi'}>Body Mass Index</Menu.Item>
                 <Menu.Item as={Link} to={`/bmr`} name='bmr' onClick={this.handleItemClick} active={activeItem === 'bmr'}>Basal Metabolic Rate</Menu.Item>
                 {this.state.isLoggedIn ?
@@ -167,6 +166,7 @@ class DesktopContainer extends Component {
                     <Dropdown
                       trigger={<Image avatar src={this.state.profile_pic} circular />}
                       options={[{ key: 'account', text: 'Account', icon: 'user' },
+                      { key: 'dash', text: 'Dashboard', icon: 'dashboard'},
                       { key: 'settings', text: 'Settings', icon: 'settings' },
                       {
                         key: 'logout', text: 'Logout', icon: 'google', onClick: this.logout,
@@ -267,7 +267,7 @@ class MobileContainer extends Component {
           vertical
           visible={sidebarOpened}
         >
-          <Menu.Item as={Link} to={`/home`} name='home' onClick={this.handleItemClick} active={activeItem === 'home'}>Home</Menu.Item>
+          <Menu.Item as={Link} to={`/`} name='home' onClick={this.handleItemClick} active={activeItem === 'home'}>Home</Menu.Item>
           <Menu.Item as={Link} to={`/bmi`} name='bmi' onClick={this.handleItemClick} active={activeItem === 'bmi'}>Body Mass Index</Menu.Item>
           <Menu.Item as={Link} to={`/bmr`} name='bmr' onClick={this.handleItemClick} active={activeItem === 'bmr'}>Basal Metabolic Rate</Menu.Item>
         </Sidebar>
@@ -299,6 +299,7 @@ class MobileContainer extends Component {
                     <Dropdown
                       trigger={<Image avatar src={this.state.profile_pic} circular />}
                       options={[{ key: 'account', text: 'Account', icon: 'user' },
+                      { key: 'dash', text: 'Dashboard', icon: 'dashboard '},
                       { key: 'settings', text: 'Settings', icon: 'settings' },
                       {
                         key: 'logout', text: 'Logout', icon: 'google', onClick: this.logout,

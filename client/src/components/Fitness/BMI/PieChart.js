@@ -1,16 +1,14 @@
 import React from 'react';
 import { PieChart, ResponsiveContainer, Pie, Cell } from 'recharts';
 
-const data = [{name: 'Group A', value: 400}, {name: 'Group B', value: 300},
-                  {name: 'Group C', value: 300}, {name: 'Group D', value: 200}];
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+const COLORS = ['blue', 'green', 'yellow', 'red'];
 
 const RADIAN = Math.PI / 180;                    
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
- 	const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
   const x  = cx + radius * Math.cos(-midAngle * RADIAN);
   const y = cy  + radius * Math.sin(-midAngle * RADIAN);
- 
+  
   return (
     <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} 	dominantBaseline="central">
     	{`${(percent * 100).toFixed(0)}%`}
@@ -18,11 +16,21 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
   );
 };
 
-const BmiChart = props => (
+const BmiChart = props => {
+  const data = props.data;
+  const catArr = data.map(e => e.category);
+  const under = catArr.filter(e => e === 'underweight');
+  const normal = catArr.filter(e => e === 'normal weight')
+  const over = catArr.filter(e => e === 'overweight')
+  const obese = catArr.filter(e => e === 'obese')
+  const newData = [{ name: 'underweight', value: under.length }, { name: 'normal weight', value: normal.length },
+{ name: 'overweight', value: over.length}, { name: 'obese', value: obese.length }]
+   return (
     <ResponsiveContainer height={400} width={'100%'}>
         <PieChart width={800} height={400}>
         <Pie
-          data={data} 
+          data={newData} 
+          dataKey='value'
           cx={300} 
           cy={200} 
           labelLine={false}
@@ -31,11 +39,11 @@ const BmiChart = props => (
           fill="#8884d8"
         >
         	{
-          	data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
+           newData.map((entry, index) => <Cell key={index} fill={COLORS[index % COLORS.length]}/>)
           }
         </Pie>
       </PieChart>
     </ResponsiveContainer>
-)
+)}
 
 export default BmiChart;

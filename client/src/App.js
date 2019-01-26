@@ -5,7 +5,6 @@ import BMIcalc from './components/Fitness/BMI/Calc';
 import BMRcalc from './components/Fitness/BMR/Calc';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faDumbbell, faSmile, faFrown } from '@fortawesome/free-solid-svg-icons'
-// import Home from './components/Homepage/Home'
 
 library.add(faDumbbell, faSmile, faFrown)
 
@@ -16,7 +15,6 @@ class App extends Component {
         <HomepageLayout>
           <Switch>
           <Route exact path='/' component={HomepageHeading} />
-          <Route exact path='/home' component={HomepageHeading} />
           <Route exact path='/bmi' component={BMIcalc} />
           <Route exact path='/bmr' component={BMRcalc} />
           </Switch>

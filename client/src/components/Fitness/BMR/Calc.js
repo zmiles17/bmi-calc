@@ -67,7 +67,10 @@ class BMRcalc extends React.Component {
                     </Header>
                 </Divider>
                 <Segment inverted>
-                    
+                    Basal metabolic rate is the rate of energy expenditure per unit time at rest, and is the deciding factor in whether an individual gains, maintains, or loses weight. 
+                    This accounts for 60-75% of daily caloric expenditure and typically declines by 1-2% every decade after the age of 20.
+                    Anaerobic exercise or strength training does increase resting energy expenditure. 
+                    Aerobic exercise or cardiovascular training does not correlate with increased BMR rates when adjusted for fat-free body mass.
                 </Segment>
                 <Userinput
                     data={this.state}
