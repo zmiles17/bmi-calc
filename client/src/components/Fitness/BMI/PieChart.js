@@ -10,7 +10,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
   const y = cy  + radius * Math.sin(-midAngle * RADIAN);
   
   return (
-    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} 	dominantBaseline="central">
+    <text x={x} y={y} fill="black" textAnchor={x > cx ? 'start' : 'end'} 	dominantBaseline="central" style={{'fontWeight': 'bold', 'fontSize': '20px' }}>
     	{`${(percent * 100).toFixed(0)}%`}
     </text>
   );
@@ -27,19 +27,19 @@ const BmiChart = props => {
 { name: 'overweight', value: over.length}, { name: 'obese', value: obese.length }]
    return (
     <ResponsiveContainer height={400} width={'100%'}>
-        <PieChart width={800} height={400}>
+        <PieChart width={300} height={400} margin={{ top: 20, right: 200, bottom: 10, left: 10 }}>
         <Pie
           data={newData} 
           dataKey='value'
-          cx={300} 
-          cy={200} 
+          cx={200} 
+          cy={150} 
           labelLine={false}
           label={renderCustomizedLabel}
-          outerRadius={80} 
+          outerRadius={150} 
           fill="#8884d8"
         >
         	{
-           newData.map((entry, index) => <Cell key={index} fill={COLORS[index % COLORS.length]}/>)
+           newData.map((entry, index) => <Cell key={`cell-${index}`} stroke={COLORS[index]} fill={COLORS[index % COLORS.length]}/>)
           }
         </Pie>
       </PieChart>
