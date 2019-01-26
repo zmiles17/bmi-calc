@@ -8,9 +8,8 @@ const FitSchema = new Schema({
         required: [true, 'An error occurred while processing your request! Please give valid entries!']
     },
     weight: { type: Number, required: true, min: 0, max: 500 },
-    height: { type: Number, required: true, min: 0, max: 100 },
+    height: { type: Number, required: true, min: 0, max: 300 },
     category: { type: 'String', required: true },
-    _user: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 
 const Fitness = mongoose.model('Fitness', FitSchema);

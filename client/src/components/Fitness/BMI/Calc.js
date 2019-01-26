@@ -61,7 +61,7 @@ class BMIcalc extends React.Component {
             .then(data => {
                 console.log(data);
                 this.getData()
-                if (data.data === null) this.setState({ dbMessage: 'Please give valid inputs.' })
+                if (data.data.errors) this.setState({ dbMessage: data.data.message })
             })
     }
 
@@ -112,7 +112,8 @@ class BMIcalc extends React.Component {
                         Your body mass index is <b>{this.state.bmi}</b>
                         <br></br>
                         Your BMI category is <b>{this.state.category}</b> {this.state.category !== 'normal weight' ? <FontAwesomeIcon icon='frown' /> : <FontAwesomeIcon icon='smile' />}
-                    </Message> : this.state.dbMessage ? <Message error>{this.state.dbMessage}</Message> : ''}
+                    </Message>
+                    : this.state.dbMessage ? <Message error>{this.state.dbMessage}</Message> : ''}
                 <BMIgraph data={this.state.data} />
                 <BmiChart data={this.state.data} />
             </Container>

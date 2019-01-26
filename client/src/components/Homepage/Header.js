@@ -171,7 +171,7 @@ class DesktopContainer extends Component {
                       {
                         key: 'logout', text: 'Logout', icon: 'google', onClick: this.logout,
                       }]}
-                      pointing='top left' icon={null}>
+                      pointing='top right'>
                     </Dropdown>
                   </Menu.Item> : null}
               </Container>
@@ -288,7 +288,7 @@ class MobileContainer extends Component {
                   : <Menu.Item position='right'><GoogleLogin
                     clientId="212183881598-crat4ugt0pram2fiaanannq4p6vmj8mn.apps.googleusercontent.com"
                     render={renderProps => (
-                      <Button onClick={renderProps.onClick} inverted><Icon name='google' />Login with Google</Button>
+                      <Button onClick={renderProps.onClick} inverted><Icon name='google' />Login</Button>
                     )}
                     onSuccess={this.responseGoogle}
                     onFailure={this.responseGoogle} />
@@ -303,7 +303,7 @@ class MobileContainer extends Component {
                       {
                         key: 'logout', text: 'Logout', icon: 'google', onClick: this.logout,
                       }]}
-                      pointing='top right' icon={null}>
+                      pointing='top right'>
                     </Dropdown>
                   </Menu.Item> : null}
               </Menu>
