@@ -164,9 +164,11 @@ class DesktopContainer extends Component {
                 {this.state.profile_pic !== '' ?
                   <Menu.Item position='right'>
                     <Dropdown
-                      trigger={<Image avatar src={this.state.profile_pic} circular />}
+                    header={this.state.username}
+                    trigger={<Image avatar src={this.state.profile_pic} circular  />}
+                    item
                       options={[{ key: 'account', text: 'Account', icon: 'user' },
-                      { key: 'dash', text: 'Dashboard', icon: 'dashboard'},
+                      { key: 'dash', text: 'Dashboard', icon: 'dashboard', onClick: () => window.location.replace('/dash')},
                       { key: 'settings', text: 'Settings', icon: 'settings' },
                       {
                         key: 'logout', text: 'Logout', icon: 'google', onClick: this.logout,
@@ -297,14 +299,16 @@ class MobileContainer extends Component {
                 {this.state.profile_pic !== '' ?
                   <Menu.Item position='right'>
                     <Dropdown
+                    item
+                    header={this.state.username}
                       trigger={<Image avatar src={this.state.profile_pic} circular />}
                       options={[{ key: 'account', text: 'Account', icon: 'user' },
-                      { key: 'dash', text: 'Dashboard', icon: 'dashboard '},
+                      { key: 'dash', text: 'Dashboard', icon: 'dashboard', onClick: () => window.location.replace('/dash')},
                       { key: 'settings', text: 'Settings', icon: 'settings' },
                       {
                         key: 'logout', text: 'Logout', icon: 'google', onClick: this.logout,
                       }]}
-                      pointing='top right'>
+                      pointing={'top right'}>
                     </Dropdown>
                   </Menu.Item> : null}
               </Menu>

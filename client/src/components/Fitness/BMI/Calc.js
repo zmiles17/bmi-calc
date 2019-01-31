@@ -18,14 +18,10 @@ class BMIcalc extends React.Component {
         _user: sessionStorage.getItem('userData')
     }
 
-    getData() {
+    componentDidMount() {
         axios.get('/api/fitness').then(res => {
             this.setState({ data: res.data })
         })
-    }
-
-    componentDidMount() {
-        this.getData();
     }
 
     setWeight = event => this.setState({ weight: event.target.value });
@@ -51,22 +47,21 @@ class BMIcalc extends React.Component {
         if (25 <= bmi && bmi < 29.9) category = 'overweight';
         if (bmi >= 30) category = 'obese';
         this.setState({ bmi: Math.round(10 * bmi) / 10, category: category });
-        axios.put('/api/fitness', {
+        axios.post('/api/fitness', {
             bmi: Math.round(10 * bmi) / 10,
             weight: Math.round(weight * 22.05) / 10,
             height: Math.round(height * 393.7) / 10,
-            category: category,
-            _user: this.state._user
+            category: category
         })
             .then(data => {
-                this.getData()
+                this.componentDidMount()
                 if (data.data.errors) this.setState({ dbMessage: data.data.message })
             })
     }
 
     render() {
         return (
-            <Container text>
+            <Container text textAlign='justified'>
                 <Divider horizontal>
                     <Header as='h4' inverted>
                         <Icon name='info circle' />
@@ -75,13 +70,13 @@ class BMIcalc extends React.Component {
                 </Divider>
                 <Segment inverted>
                     The body mass index or Quetelet index is a method of determining relative obesity, which was devised by a Belgian astronomer named Adolphe Quetelet between 1830 and 1850.
-                         It is a value derived from dividing the weight and height of an individual expressed in kilograms per meters squared.
-                         This method is a reliable indicator of obesity for average sedentary (physically inactive) populations.
+                     It is a value derived from dividing the weight and height of an individual expressed in kilograms per meters squared.
+                     This method is a reliable indicator of obesity for average sedentary (physically inactive) populations.
                 </Segment>
                 <Divider horizontal>
                     <Header as='h4' inverted>
                         <Icon name='write' />
-                        Form
+                        Survey
                     </Header>
                 </Divider>
                 <Form inverted>
@@ -97,13 +92,13 @@ class BMIcalc extends React.Component {
                             <Form.Radio label='centimeters' value='cm' name='height' onChange={this.setHeightUnits} checked={this.state.heightUnits === 'cm'} />
                         </Form.Group>
                     </Form.Group>
-                    <Form.Button color='blue' onClick={this.clickHandler}>Calculate<Icon corner='top right' name='calculator' /></Form.Button>
+                    <Form.Button circular floated={'right'} color='teal' onClick={this.clickHandler}>Calculate<Icon corner='top right' name='calculator' /></Form.Button>
                 </Form>
                 <br></br>
                 <Divider horizontal>
                     <Header as='h4' inverted>
-                        <Icon name='chart line' />
-                        Results
+                        <Icon name='chart pie' />
+                        Statistics
                     </Header>
                 </Divider>
                 {this.state.bmi ?

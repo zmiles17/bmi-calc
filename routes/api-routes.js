@@ -15,25 +15,33 @@ module.exports = function (app) {
             });
     });
 
-    app.put('/api/fitness', function (req, res) {
-        const d = Date.now()
+    app.put('/api/users', function (req, res) {
+        const today = Date.now()
+        users.findByIdAndUpdate(req.body._user,
+            {
+                $push: {
+                    fitness: {
+                        weight: req.body.weight,
+                        date: moment(today).format('LL')
+                    }
+                }
+            })
+            .then(function (data) {
+                res.json(data);
+            })
+            .catch(function (err) {
+                res.json(err);
+            })
+    })
+
+    app.post('/api/fitness', function (req, res) {
         fitness.create({
             bmi: req.body.bmi,
             weight: req.body.weight,
             height: req.body.height,
             category: req.body.category
         })
-        .then(function (data) {
-            if(req.body._user !== null) 
-                users.findByIdAndUpdate(req.body._user,
-                {
-                    $push: {
-                        fitness: {
-                            weight: req.body.weight,
-                            date: moment(d).format('LL')
-                        }
-                    }
-                })
+            .then(function (data) {
                 res.json(data);
             })
             .catch(function (err) {

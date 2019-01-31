@@ -17,8 +17,8 @@ const Userinput = props => (
     <Form inverted>
         <Divider horizontal>
             <Header as='h4' inverted>
-                <Icon name='write' />
-                Form
+                <Icon name='question circle' />
+                What is my BMR?
                     </Header>
         </Divider>
         <Form.Group widths='equal'>
@@ -38,7 +38,7 @@ const Userinput = props => (
             <Form.Select fluid label='Gender' options={genderOptions} placeholder='Gender' onChange={props.setGender} />
             <Form.Select fluid label='Activity Level' placeholder='Activity Level' options={options} onChange={props.setActivity} />
         </Form.Group>
-        <Form.Button color='blue' onClick={props.clickHandler}>Calculate<Icon corner='top right' name='calculator' /></Form.Button>
+        <Form.Button circular floated={'right'} color='teal' onClick={props.clickHandler}>Calculate<Icon corner='top right' name='calculator' /></Form.Button>
     </Form>
 )
 

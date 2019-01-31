@@ -35,11 +35,11 @@ const BmiChart = props => {
           cy={150} 
           labelLine={false}
           label={renderCustomizedLabel}
-          outerRadius={150} 
+          outerRadius={125} 
           fill="#8884d8"
         >
         	{
-           newData.map((entry, index) => <Cell key={`cell-${index}`} stroke={COLORS[index]} fill={COLORS[index % COLORS.length]}/>)
+           newData.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]}/>)
           }
         </Pie>
       </PieChart>
