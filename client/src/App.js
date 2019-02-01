@@ -5,10 +5,10 @@ import BMIcalc from './components/Fitness/BMI/Calc';
 import BMRcalc from './components/Fitness/BMR/Calc';
 import Tracker from './components/Tracker/Tracker';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faDumbbell, faSmile, faFrown } from '@fortawesome/free-solid-svg-icons'
+import { faDumbbell, faSmile, faFrown, faSadCry } from '@fortawesome/free-solid-svg-icons'
 import Errorpage from './components/404/Error';
 
-library.add(faDumbbell, faSmile, faFrown)
+library.add(faDumbbell, faSmile, faFrown, faSadCry)
 
 class App extends Component {
   render() {

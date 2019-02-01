@@ -3,8 +3,6 @@ const bodyParser = require('body-parser');
 const mongoose = require("mongoose");
 const app = express();
 const PORT = process.env.PORT || 3001;
-// const dotenv = require('dotenv');
-// dotenv.config();
 
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));

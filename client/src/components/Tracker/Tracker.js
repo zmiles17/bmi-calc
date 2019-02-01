@@ -19,7 +19,6 @@ class Dashboard extends React.Component {
                     this.setState({ name: data.data.name.split(' ')[0], data: data.data.fitness });
                 })
             }
-            else window.location.replace('/')
     }
 
     setWeight = event => this.setState({ weight: event.target.value });
@@ -38,6 +37,7 @@ class Dashboard extends React.Component {
     }
 
     render() {
+        if(sessionStorage.getItem('userData') === null) window.location.replace('/');
         return (
             <Container text textAlign='center'>
                 <Divider horizontal>
