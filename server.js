@@ -3,8 +3,8 @@ const bodyParser = require('body-parser');
 const mongoose = require("mongoose");
 const app = express();
 const PORT = process.env.PORT || 3001;
-const dotenv = require('dotenv');
-dotenv.config();
+// const dotenv = require('dotenv');
+// dotenv.config();
 
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === "production") {
 require('./routes/api-routes')(app);
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/fitcalc' || process.env.MONGOLAB_URI, { useNewUrlParser: true })
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/fitcalc', { useNewUrlParser: true })
   .catch(function (err) {
     console.log(err)
   });

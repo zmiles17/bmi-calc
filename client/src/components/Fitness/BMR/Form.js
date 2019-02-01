@@ -35,8 +35,8 @@ const Userinput = props => (
         </Form.Group>
         <Form.Group widths='equal'>
             <Form.Input fluid error={props.data.age < 0} label='Age' placeholder='Enter your age' type='number' required onChange={props.setAge} />
-            <Form.Select fluid label='Gender' options={genderOptions} placeholder='Gender' onChange={props.setGender} />
-            <Form.Select fluid label='Activity Level' placeholder='Activity Level' options={options} onChange={props.setActivity} />
+            <Form.Select fluid label='Gender' options={genderOptions} placeholder='Gender' onChange={props.setGender} required />
+            <Form.Select fluid label='Activity Level' placeholder='Activity Level' options={options} onChange={props.setActivity} required />
         </Form.Group>
         <Form.Button circular floated={'right'} color='teal' onClick={props.clickHandler}>Calculate<Icon corner='top right' name='calculator' /></Form.Button>
     </Form>

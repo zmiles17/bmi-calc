@@ -151,8 +151,7 @@ class DesktopContainer extends Component {
                 <Menu.Item as={Link} to={`/`} name='home' onClick={this.handleItemClick} active={activeItem === 'home'}>Home</Menu.Item>
                 <Menu.Item as={Link} to={`/bmi`} name='bmi' onClick={this.handleItemClick} active={activeItem === 'bmi'}>Body Mass Index</Menu.Item>
                 <Menu.Item as={Link} to={`/bmr`} name='bmr' onClick={this.handleItemClick} active={activeItem === 'bmr'}>Basal Metabolic Rate</Menu.Item>
-                {this.state.isLoggedIn ?
-                  null
+                {this.state.isLoggedIn ? <Menu.Item as={Link} to={`/tracker`} name='tracker' onClick={this.handleItemClick} active={activeItem === 'tracker'}>Weight Tracker</Menu.Item>
                   : <Menu.Item position='right'>
                     <GoogleLogin
                       clientId="212183881598-crat4ugt0pram2fiaanannq4p6vmj8mn.apps.googleusercontent.com"
@@ -164,11 +163,11 @@ class DesktopContainer extends Component {
                 {this.state.profile_pic !== '' ?
                   <Menu.Item position='right'>
                     <Dropdown
-                    header={this.state.username}
-                    trigger={<Image avatar src={this.state.profile_pic} circular  />}
-                    item
+                      header={this.state.username}
+                      trigger={<Image avatar src={this.state.profile_pic} circular />}
+                      item
                       options={[{ key: 'account', text: 'Account', icon: 'user' },
-                      { key: 'dash', text: 'Dashboard', icon: 'dashboard', onClick: () => window.location.replace('/dash')},
+                      { key: 'tracker', text: 'Weight Tracker', icon: 'dashboard', onClick: () => window.location.replace('/tracker') },
                       { key: 'settings', text: 'Settings', icon: 'settings' },
                       {
                         key: 'logout', text: 'Logout', icon: 'google', onClick: this.logout,
@@ -272,6 +271,7 @@ class MobileContainer extends Component {
           <Menu.Item as={Link} to={`/`} name='home' onClick={this.handleItemClick} active={activeItem === 'home'}>Home</Menu.Item>
           <Menu.Item as={Link} to={`/bmi`} name='bmi' onClick={this.handleItemClick} active={activeItem === 'bmi'}>Body Mass Index</Menu.Item>
           <Menu.Item as={Link} to={`/bmr`} name='bmr' onClick={this.handleItemClick} active={activeItem === 'bmr'}>Basal Metabolic Rate</Menu.Item>
+          {this.state.isLoggedIn ? <Menu.Item as={Link} to={`/tracker`} name='tracker' onClick={this.handleItemClick} active={activeItem === 'tracker'}>Weight Tracker</Menu.Item> : null}
         </Sidebar>
 
         <Sidebar.Pusher dimmed={sidebarOpened}>
@@ -294,16 +294,16 @@ class MobileContainer extends Component {
                     )}
                     onSuccess={this.responseGoogle}
                     onFailure={this.responseGoogle} />
-                    </Menu.Item>
+                  </Menu.Item>
                 }
                 {this.state.profile_pic !== '' ?
                   <Menu.Item position='right'>
                     <Dropdown
-                    item
-                    header={this.state.username}
+                      item
+                      header={this.state.username}
                       trigger={<Image avatar src={this.state.profile_pic} circular />}
                       options={[{ key: 'account', text: 'Account', icon: 'user' },
-                      { key: 'dash', text: 'Dashboard', icon: 'dashboard', onClick: () => window.location.replace('/dash')},
+                      { key: 'tracker', text: 'Weight Tracker', icon: 'dashboard', onClick: () => window.location.replace('/tracker') },
                       { key: 'settings', text: 'Settings', icon: 'settings' },
                       {
                         key: 'logout', text: 'Logout', icon: 'google', onClick: this.logout,

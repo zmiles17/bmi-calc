@@ -22,7 +22,7 @@ module.exports = function (app) {
                 $push: {
                     fitness: {
                         weight: req.body.weight,
-                        date: moment(today).format('LL')
+                        date: moment(today).format('l')
                     }
                 }
             })

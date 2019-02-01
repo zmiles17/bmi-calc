@@ -84,12 +84,6 @@ class BMRcalc extends React.Component {
                     heightUnits={this.state.heightUnits}
                     weightUnits={this.state.weightUnits} />
                 <br></br>
-                <Divider horizontal>
-                    <Header as='h4' inverted>
-                        <Icon name='commenting' />
-                        Results
-                    </Header>
-                </Divider>
                 {!isNaN(this.state.BMR) ?
                     <Result BMR={this.state.BMR} calories={this.state.calories} />
                     : ''}

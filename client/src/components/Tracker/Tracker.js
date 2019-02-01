@@ -13,11 +13,13 @@ class Dashboard extends React.Component {
 
     componentDidMount() {
         const currentUser = sessionStorage.getItem('userData')
-        if (currentUser !== null)
+        if (currentUser !== null) {
             axios.get(`/api/users/${currentUser}`)
                 .then(data => {
                     this.setState({ name: data.data.name.split(' ')[0], data: data.data.fitness });
                 })
+            }
+            else window.location.replace('/')
     }
 
     setWeight = event => this.setState({ weight: event.target.value });
@@ -29,7 +31,7 @@ class Dashboard extends React.Component {
         let weight = parseInt(this.state.weight);
         let _user = sessionStorage.getItem('userData')
         if (weight < 0) return 'error';
-        if(this.state.weightUnits === 'kg') weight *= 2.205;
+        if (this.state.weightUnits === 'kg') weight *= 2.205;
         axios.put('/api/users', { weight, _user }).then(data => {
             this.componentDidMount();
         })
@@ -63,15 +65,15 @@ class Dashboard extends React.Component {
                 </Divider>
                 <ResponsiveContainer height={400} width={'100%'}>
                     <LineChart width={730} height={250} data={this.state.data}
-                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                        margin={{ top: 5, right: 40, left: 20, bottom: 5 }}>
                         <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="date" />
-                        <YAxis label={{ value: 'Weight (lbs)', angle: -90, position: 'insideLeft', fill: '#8884d8'}}/>
+                        <XAxis dataKey="date" tick={{ fill: 'white' }} />
+                        <YAxis tick={{ fill: 'white' }} label={{ value: 'Weight (lbs)', angle: -90, position: 'insideLeft', fill: 'white' }} />
                         <Tooltip />
                         <Legend />
                         <Line type="monotone" dataKey="weight" name='Weight' stroke="#8884d8" />
                     </LineChart>
-                    </ResponsiveContainer>
+                </ResponsiveContainer>
             </Container>
         )
     }

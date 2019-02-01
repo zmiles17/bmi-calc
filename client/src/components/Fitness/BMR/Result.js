@@ -7,7 +7,7 @@ const Result = props => (
             + ' Calories per day'}</b>
         : ''}
         <hr></hr>
-        Calories needed to maintain your current weight {!isNaN(props.calories)
+        Calories needed to maintain your current weight: {!isNaN(props.calories)
             ? <b>{Math.round(props.calories)
                 + ' Calories per day'}</b>
             : ''}
