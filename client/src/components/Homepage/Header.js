@@ -151,7 +151,10 @@ class DesktopContainer extends Component {
                 <Menu.Item as={Link} to={`/`} name='home' onClick={this.handleItemClick} active={activeItem === 'home'}>Home</Menu.Item>
                 <Menu.Item as={Link} to={`/bmi`} name='bmi' onClick={this.handleItemClick} active={activeItem === 'bmi'}>Body Mass Index</Menu.Item>
                 <Menu.Item as={Link} to={`/bmr`} name='bmr' onClick={this.handleItemClick} active={activeItem === 'bmr'}>Basal Metabolic Rate</Menu.Item>
-                {this.state.isLoggedIn ? <Menu.Item as={Link} to={`/tracker`} name='tracker' onClick={this.handleItemClick} active={activeItem === 'tracker'}>Weight Tracker</Menu.Item>
+                {this.state.isLoggedIn ? <React.Fragment>
+                  <Menu.Item as={Link} to={`/gym-finder`} name='gym-finder' onClick={this.handleItemClick} active={activeItem === 'gym-finder'}>Gym Finder</Menu.Item>
+                  <Menu.Item as={Link} to={`/tracker`} name='tracker' onClick={this.handleItemClick} active={activeItem === 'tracker'}>Weight Tracker</Menu.Item>
+                </React.Fragment>
                   : <Menu.Item position='right'>
                     <GoogleLogin
                       clientId="212183881598-crat4ugt0pram2fiaanannq4p6vmj8mn.apps.googleusercontent.com"
@@ -271,7 +274,12 @@ class MobileContainer extends Component {
           <Menu.Item as={Link} to={`/`} name='home' onClick={this.handleItemClick} active={activeItem === 'home'}>Home</Menu.Item>
           <Menu.Item as={Link} to={`/bmi`} name='bmi' onClick={this.handleItemClick} active={activeItem === 'bmi'}>Body Mass Index</Menu.Item>
           <Menu.Item as={Link} to={`/bmr`} name='bmr' onClick={this.handleItemClick} active={activeItem === 'bmr'}>Basal Metabolic Rate</Menu.Item>
-          {this.state.isLoggedIn ? <Menu.Item as={Link} to={`/tracker`} name='tracker' onClick={this.handleItemClick} active={activeItem === 'tracker'}>Weight Tracker</Menu.Item> : null}
+
+          {this.state.isLoggedIn ? <React.Fragment>
+            <Menu.Item as={Link} to={`/gym-finder`} name='gym-finder' onClick={this.handleItemClick} active={activeItem === 'gym-finder'}>Gym Finder</Menu.Item>
+            <Menu.Item as={Link} to={`/tracker`} name='tracker' onClick={this.handleItemClick} active={activeItem === 'tracker'}>Weight Tracker</Menu.Item>
+          </React.Fragment>
+            : null}
         </Sidebar>
 
         <Sidebar.Pusher dimmed={sidebarOpened}>

@@ -17,7 +17,7 @@ module.exports = function (app) {
 
     app.put('/api/users', function (req, res) {
         const today = Date.now()
-        users.findByIdAndUpdate(req.body._user,
+        users.findOneAndUpdate(req.body._user,
             {
                 $push: {
                     fitness: {

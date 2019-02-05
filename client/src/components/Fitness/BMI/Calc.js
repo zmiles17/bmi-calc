@@ -31,7 +31,7 @@ class BMIcalc extends React.Component {
     setHeight = event => this.setState({ height: event.target.value });
 
     setHeightUnits = event => this.setState({ heightUnits: event.target.parentNode.children[0].value });
-
+    
     clickHandler = event => {
         event.preventDefault();
         let category;
